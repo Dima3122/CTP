@@ -6,4 +6,4 @@ target_link_libraries(
     test PRIVATE
     gtest gtest_main
 )
-
+add_custom_target(check ALL COMMAND test)
