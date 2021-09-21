@@ -8,11 +8,13 @@ int main(int argc, char *argv[])
 {
     CLI::App app{"App description"};
 
-    std::string filename = "default";
-    app.add_option("-f,--file", filename, "A help string");
-
+    float first = 0.f;
+    app.add_option("-f,--first", first, "Set first argument")->required();
+    
+    float second = 0.f;
+    app.add_option("-s,--second", second, "Set second argument")->required();
     CLI11_PARSE(app, argc, argv);
 
-    cout << sumTwoFloat(11.4, 5.7) << "\n";
+    cout << sumTwoFloat(first, second) << "\n";
     return 0;
 }
