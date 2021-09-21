@@ -1,4 +1,4 @@
-#include "/home/dmitry/Програмирование/CTP/external/gtest/googletest/include/gtest/gtest.h"
+#include "../external/gtest/googletest/include/gtest/gtest.h"
 #include "../src/lib/lib/foo.hpp"
 
 
