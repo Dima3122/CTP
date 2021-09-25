@@ -3,7 +3,8 @@ Checks:          'clang-diagnostic-*,clang-analyzer-*,*,-fuchsia-*,-llvmlibc-*,-
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
-FormatStyle:     .clang-format
+FormatStyle:     none
+User:            vasiliy
 CheckOptions:
   - key:             abseil-string-find-startswith.AbseilStringsMatchHeader
     value:           'absl/strings/match.h'
