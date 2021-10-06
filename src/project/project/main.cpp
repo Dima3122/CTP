@@ -1,7 +1,6 @@
 #include <iostream>
-#include "../lib/lib/calc.hpp"
-#include "../../../external/cli11/include/CLI/CLI.hpp"
-
+#include <calc.hpp>
+#include <CLI.hpp>
 using namespace std;
 
 int main(int argc, char *argv[])

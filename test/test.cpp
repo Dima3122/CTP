@@ -1,6 +1,5 @@
-#include "../external/gtest/googletest/include/gtest/gtest.h"
-#include "../src/lib/lib/calc.hpp"
-
+#include <calc.hpp>
+#include <gtest.h>
 
 TEST(test_case_name, test_name)
 {
