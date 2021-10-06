@@ -1,1 +1,1 @@
-float sumTwoFloat(float a, float b);
+float SumTwoFloat(float a, float b);

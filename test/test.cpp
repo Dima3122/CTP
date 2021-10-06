@@ -4,8 +4,8 @@
 
 TEST(test_case_name, test_name)
 {
-	float a = 11.5;
-	float b = 5.5;
-	float result = sumTwoFloat(a,b);
+	const float a = 11.5;
+	const float b = 5.5;
+	const float result = SumTwoFloat(a,b);
 	ASSERT_EQ(result, 17) << "1 is not equal 0";
 }

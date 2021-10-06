@@ -7,3 +7,4 @@ target_link_libraries(
     gtest gtest_main
 )
 add_custom_target(check ALL COMMAND test)
+set_compile_options(test)

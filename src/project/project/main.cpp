@@ -15,6 +15,6 @@ int main(int argc, char *argv[])
     app.add_option("-s,--second", second, "Set second argument")->required();
     CLI11_PARSE(app, argc, argv);
 
-    cout << sumTwoFloat(first, second) << "\n";
+    cout << SumTwoFloat(first, second) << "\n";
     return 0;
 }
