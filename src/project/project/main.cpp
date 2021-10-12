@@ -1,7 +1,6 @@
 #include <iostream>
-#include <calc.hpp>
+#include <SqlStatement.hpp>
 #include <CLI.hpp>
-using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +12,8 @@ int main(int argc, char *argv[])
     float second = 0.f;
     app.add_option("-s,--second", second, "Set second argument")->required();
     CLI11_PARSE(app, argc, argv);
-
-    cout << SumTwoFloat(first, second) << "\n";
+    //sql::SqlStatement a;
+    //a.CreateTableStatement("hello");
+    //std::cout <<  << "\n";
     return 0;
 }
