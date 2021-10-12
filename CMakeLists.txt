@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 include(cmake/CompileOptions.cmake)
-
+set(CMAKE_CXX_STANDARD 17)
 project(project)
 add_subdirectory(external)
 add_subdirectory(src)
