@@ -19,5 +19,6 @@ int main(/*int argc, char *argv[]*/)
     std::cout << "Write sql inquiry" << '\n';
     std::getline(std::cin, sql_inquiry);
     lex.parse_sql(sql_inquiry);
+    
     return 0;
 }

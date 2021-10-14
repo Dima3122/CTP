@@ -6,6 +6,7 @@ namespace lexor
     {
         argv = new std::string[10];
         value = new std::string[10];
+        TypeName = new std::string[10];
         count_argument = 0;
         error = false;
     }
@@ -18,13 +19,44 @@ namespace lexor
             std::cout << "Выбрано не верное действие"<< '\n';
             error = true;
         }
-        // std::cout << count_argument <<std::endl;
-        Checking_the_Value();
+        else
+        {
+            //должна ли быть тут проверка на то создаа ли таблица???
+            //Или тут первична проверка синтаксиса и если что, то дальше выкидываем ошибку...
+            //послать в нужный класс.
+            if (first_token == "CREATE")//ну тут хрен знает... надо объединять
+            {
+                get_second_token_from();
+                //послать запрос
+            }
+            else if(first_token == "SELECT")
+            {
+                get_second_token_from();//????
+                //послать запрос
+            }
+            else if(first_token == "INSERT")
+            {
+                Checking_the_Value();
+                //послать запрос
+            }
+            else if(first_token == "DELETE")
+            {
+                get_second_token_from();
+                //послать запрос
+            }
+            else if(first_token == "DROP")
+            {
+                get_second_token_from();
+                //послать запрос
+            }
+        }
     }
-    
+    void Lexical_analyzer::get_second_token_from()
+    {
+        second_token = argv[1];
+    }
     void Lexical_analyzer::Break_words(std::string script_text)
     {
-        
         std::string s = script_text;
         std::string delimiter = " ";
         int i = 0;
@@ -76,6 +108,7 @@ namespace lexor
 
     bool Lexical_analyzer::Checking_the_Value()
     {
+        int j = 0;
         if(count_argument <= 1)
         {
             std::cout << "Недостаточно аргументов" << '\n';
@@ -83,15 +116,59 @@ namespace lexor
         }
         for(int i = 1; i <= count_argument; i++)
         {//Четные - выбор типа данных, нечетные значение.
-            if((i % 2) == 0)//Четные
+            if((i % 2) == 1)//Четные
             {
-                //TODO
+                if (argv[i] == "INT")
+                {
+                    TypeName[j] = argv[i];
+                    j++;
+                }
+                else if (argv[i] == "TEXT")
+                {
+                    TypeName[j] = argv[i];
+                    j++;
+                }
+                else if (argv[i] == "REAL")
+                {
+                    TypeName[j] = argv[i];
+                    j++;
+                }
+                else
+                {
+                    error = true;
+                    std::cout << "Не правильно выбран тип данных" << '\n';
+                }
             }
-            else if(i % 2 == 1)//нечетные
+            else if(i % 2 == 0)//нечетные
             {
-                //TODO
+                value[j] = argv[i];
             }
         }
         return true;
+    }
+
+    void Lexical_analyzer::set_second_token(std::string second_token)
+    {
+        this->second_token = second_token;
+    }
+    std::string Lexical_analyzer::get_second_token()
+    {
+        return second_token;
+    }
+    void Lexical_analyzer::set_fisttoken(std::string first_token)
+    {
+        this->first_token = first_token;
+    }
+    std::string Lexical_analyzer::get_first_token()
+    {
+        return first_token;
+    }
+    void Lexical_analyzer::set_count_argument(int count_argument)
+    {
+        this->count_argument = count_argument;
+    }
+    int Lexical_analyzer::get_count_argument()
+    {
+        return count_argument;
     }
 }
