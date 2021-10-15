@@ -21,7 +21,8 @@ namespace lexor
         }
         else
         {
-            //должна ли быть тут проверка на то создаа ли таблица???
+            //должна ли быть тут проверка на то создаа ли таблица??? должна ли 
+            //создаваться таблица? Текстовый файл??? 
             //Или тут первична проверка синтаксиса и если что, то дальше выкидываем ошибку...
             //послать в нужный класс.
             if (first_token == "CREATE")//ну тут хрен знает... надо объединять
@@ -51,10 +52,12 @@ namespace lexor
             }
         }
     }
+    
     void Lexical_analyzer::get_second_token_from()
     {
         second_token = argv[1];
     }
+    
     void Lexical_analyzer::Break_words(std::string script_text)
     {
         std::string s = script_text;
@@ -170,5 +173,29 @@ namespace lexor
     int Lexical_analyzer::get_count_argument()
     {
         return count_argument;
+    }
+    void Lexical_analyzer::set_value(std::string *value)
+    {
+        this->value = value;
+    }
+    void Lexical_analyzer::set_TypeName(std::string *TypeName)
+    {
+        this->TypeName = TypeName;
+    }
+    void Lexical_analyzer::ser_argv(std::string *argv)
+    {
+        this->argv = argv;
+    }
+    std::string *Lexical_analyzer::get_value()
+    {
+        return value;
+    }
+    std::string *Lexical_analyzer::get_TypeName()
+    {
+        return TypeName;
+    }
+    std::string *Lexical_analyzer::get_argv()
+    {
+        return argv;
     }
 }
