@@ -14,21 +14,33 @@ namespace lexor
     void Lexical_analyzer::parse_sql(std::string script_text)
     {
         Break_words(script_text);//Разбиение на токены?
-        if(Checking_the_first_operation() == false)//засунуть в цикл и разбирать
-        {// аргументы, пока они не кончатся
+        if(Checking_the_first_operation() == false)
+        {
             std::cout << "Выбрано не верное действие"<< '\n';
+            error = true;
+        }
+        else if(Checking_count_argv())
+        {
+            std::cout << "Не верное количество аргументов"<< '\n';
             error = true;
         }
         else
         {
-            //должна ли быть тут проверка на то создаа ли таблица??? должна ли 
-            //создаваться таблица? Текстовый файл??? 
-            //Или тут первична проверка синтаксиса и если что, то дальше выкидываем ошибку...
-            //послать в нужный класс.
-            if (first_token == "CREATE")//ну тут хрен знает... надо объединять
+            if (first_token == "CREATE")
             {
                 get_second_token_from();
-                //послать запрос
+                Checking_the_Value();
+                if (error == false)
+                {
+                    sql::CreateTableStatement a;
+                    std::string result = a.Create_Statement(second_token, TypeName, value, (count_argument/2));
+                    std::cout << result << std::endl;
+                }
+                else
+                {
+                    std::cout << "Работа программы завершена" << '\n';
+                }
+                
             }
             else if(first_token == "SELECT")
             {
@@ -37,6 +49,7 @@ namespace lexor
             }
             else if(first_token == "INSERT")
             {
+                get_second_token_from();
                 Checking_the_Value();
                 //послать запрос
             }
@@ -78,31 +91,12 @@ namespace lexor
 
     bool Lexical_analyzer::Checking_the_first_operation()
     {
-        if(argv[0] == "CREATE")
+        if(argv[0] == "CREATE" || argv[0] == "SELECT" || argv[0] == "INSERT"
+        || argv[0] == "DELETE" || argv[0] == "DROP")
         {
             first_token = "CREATE";
             return true;
-        }
-        else if(argv[0] == "SELECT")
-        {
-            first_token = "SELECT";
-            return true;
-        }
-        else if(argv[0] == "INSERT")
-        {
-            first_token = "INSERT";
-            return true;
-        }
-        else if(argv[0] == "DELETE")
-        {
-            first_token = "DELETE";
-            return true;
-        }
-        else if(argv[0] == "DROP")
-        {
-            first_token = "DROP";
-            return true;
-        }
+        }  
         else
         {
             return false;
@@ -112,14 +106,15 @@ namespace lexor
     bool Lexical_analyzer::Checking_the_Value()
     {
         int j = 0;
+        int z = 0;
         if(count_argument <= 1)
         {
             std::cout << "Недостаточно аргументов" << '\n';
             return false;
         }
-        for(int i = 1; i <= count_argument; i++)
+        for(int i = 2; i <= count_argument; i++)
         {//Четные - выбор типа данных, нечетные значение.
-            if((i % 2) == 1)//Четные
+            if((i % 2) == 0)//Четные
             {
                 if (argv[i] == "INT")
                 {
@@ -142,12 +137,26 @@ namespace lexor
                     std::cout << "Не правильно выбран тип данных" << '\n';
                 }
             }
-            else if(i % 2 == 0)//нечетные
+            else if(i % 2 == 1)//нечетные
             {
-                value[j] = argv[i];
+                value[z] = argv[i];
+                z++;
             }
         }
         return true;
+    }
+
+    bool Lexical_analyzer::Checking_count_argv()
+    {
+        if(count_argument % 2 == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 
     void Lexical_analyzer::set_second_token(std::string second_token)

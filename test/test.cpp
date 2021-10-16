@@ -1,5 +1,6 @@
-//#include <calc.hpp>
 #include <gtest.h>
+#include <iostream>
+#include <string>
 
 TEST(test_case_name, test_name)
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
-
+#include "CreateTableStatement.hpp"
 namespace lexor
 {
     class Lexical_analyzer
@@ -19,6 +19,7 @@ namespace lexor
             void get_second_token_from();//получить аргумент для отдельных операций
             bool Checking_the_first_operation();//проверка операции
             bool Checking_the_Value();//проверка значений
+            bool Checking_count_argv();
         public:
             void parse_sql(std::string script_text);//начало парсинга
             Lexical_analyzer();//конструктор

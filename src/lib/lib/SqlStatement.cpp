@@ -2,5 +2,8 @@
 
 namespace sql
 {
-   
+    // SqlStatement::~SqlStatement()
+    // {
+
+    // }
 }
