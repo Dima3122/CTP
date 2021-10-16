@@ -26,6 +26,7 @@ namespace lexor
         }
         else
         {
+            std::cout << first_token << std::endl;
             if (first_token == "CREATE")
             {
                 get_second_token_from();
@@ -51,7 +52,16 @@ namespace lexor
             {
                 get_second_token_from();
                 Checking_the_Value();
-                //послать запрос
+                if (error == false)
+                {
+                    sql::InsertStatement IS(second_token, TypeName, value);
+                    std::string result = IS.insert_command();
+                    std::cout << result << std::endl;
+                }
+                else
+                {
+                    std::cout << "Работа программы завершена" << '\n';
+                }
             }
             else if(first_token == "DELETE")
             {
@@ -94,7 +104,7 @@ namespace lexor
         if(argv[0] == "CREATE" || argv[0] == "SELECT" || argv[0] == "INSERT"
         || argv[0] == "DELETE" || argv[0] == "DROP")
         {
-            first_token = "CREATE";
+            first_token = argv[0];
             return true;
         }  
         else

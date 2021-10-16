@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include "CreateTableStatement.hpp"
+#include "InsertStatement.hpp"
 namespace lexor
 {
     class Lexical_analyzer
