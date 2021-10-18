@@ -2,78 +2,94 @@
 
 namespace lexor
 {
-    Lexical_analyzer::Lexical_analyzer()
+    Lexical_analyzer::Lexical_analyzer(int size)
     {
-        argv = new std::string[10];
-        value = new std::string[10];
-        TypeName = new std::string[10];
+        argv = new std::string[size];
+        First_Value = new std::string[size];
+        TypeName = new std::string[size];
+        Second_Values = new std::string[size];
+        Script_Comands = new std::string[size];
         count_argument = 0;
+        count_commands = 0;
         error = false;
     }
 
     void Lexical_analyzer::parse_sql(std::string script_text)
     {
-        Break_words(script_text);//Разбиение на токены?
-        if(Checking_the_first_operation() == false)
+        //TODO: несколько запросов в одной строке.
+        //TODO: Очень сильно доработать ошибочки (Где конректно не верно)
+        Break_str_on_delim(script_text, ";");//Разбиение на токены?
+        count_commands = count_argument;
+        for (int i = 0; i < count_commands; i++)
         {
-            std::cout << "Выбрано не верное действие"<< '\n';
-            error = true;
+            Script_Comands[i] = argv[i];
         }
-        else if(Checking_count_argv())
+        
+        for (int i = 0; i < count_commands; i++)
         {
-            std::cout << "Не верное количество аргументов"<< '\n';
-            error = true;
+            Break_str_on_delim(Script_Comands[i], " ");//Разбиение на токены?
+            if(Checking_the_first_operation() == false)
+            {
+                std::cout << "Выбрано не верное действие"<< '\n';
+                error = true;
+            }
+            if(Checking_count_argv())
+            {
+                std::cout << "Не верное количество аргументов"<< '\n';
+                error = true;
+            }
+            else
+            {
+                if (first_token == "CREATE")
+                {
+                    get_second_token_from();
+                    Checking_the_Value_For_Insert();
+                    if (error == false)
+                    {
+                        sql::CreateTableStatement a;
+                        std::string result = a.Create_Statement(second_token, TypeName, First_Value, (count_argument/2));
+                        std::cout << result << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "Работа программы завершена" << '\n';
+                    }
+                    
+                }
+                else if(first_token == "SELECT")
+                {
+                    get_second_token_from();//????
+                    //послать запрос
+                }
+                else if(first_token == "INSERT")
+                {
+                    get_second_token_from();
+                    Get_Values();
+                    if (error == false)
+                    {
+                        sql::InsertStatement IS(second_token, Second_Values, First_Value);
+                        std::string result = IS.insert_command();
+                        std::cout << result << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "Работа программы завершена" << '\n';
+                    }
+                }
+                else if(first_token == "DELETE")
+                {
+                    get_second_token_from();
+                    //послать запрос
+                }
+                else if(first_token == "DROP")
+                {
+                    get_second_token_from();
+                    //послать запрос
+                }
+            }
+            //обнуление переменных
         }
-        else
-        {
-            std::cout << first_token << std::endl;
-            if (first_token == "CREATE")
-            {
-                get_second_token_from();
-                Checking_the_Value();
-                if (error == false)
-                {
-                    sql::CreateTableStatement a;
-                    std::string result = a.Create_Statement(second_token, TypeName, value, (count_argument/2));
-                    std::cout << result << std::endl;
-                }
-                else
-                {
-                    std::cout << "Работа программы завершена" << '\n';
-                }
-                
-            }
-            else if(first_token == "SELECT")
-            {
-                get_second_token_from();//????
-                //послать запрос
-            }
-            else if(first_token == "INSERT")
-            {
-                get_second_token_from();
-                Checking_the_Value();
-                if (error == false)
-                {
-                    sql::InsertStatement IS(second_token, TypeName, value);
-                    std::string result = IS.insert_command();
-                    std::cout << result << std::endl;
-                }
-                else
-                {
-                    std::cout << "Работа программы завершена" << '\n';
-                }
-            }
-            else if(first_token == "DELETE")
-            {
-                get_second_token_from();
-                //послать запрос
-            }
-            else if(first_token == "DROP")
-            {
-                get_second_token_from();
-                //послать запрос
-            }
-        }
+        
     }
     
     void Lexical_analyzer::get_second_token_from()
@@ -81,10 +97,10 @@ namespace lexor
         second_token = argv[1];
     }
     
-    void Lexical_analyzer::Break_words(std::string script_text)
+    void Lexical_analyzer::Break_str_on_delim(std::string script_text,
+    std::string delimiter)
     {
         std::string s = script_text;
-        std::string delimiter = " ";
         int i = 0;
         size_t pos = 0;
         std::string token;
@@ -113,14 +129,38 @@ namespace lexor
         }
     }
 
-    bool Lexical_analyzer::Checking_the_Value()
+    void Lexical_analyzer::Get_Values()
     {
         int j = 0;
         int z = 0;
         if(count_argument <= 1)
         {
             std::cout << "Недостаточно аргументов" << '\n';
-            return false;
+            error = true;
+        }
+        for(int i = 2; i <= count_argument; i++)
+        {//Четные - выбор типа данных, нечетные значение.
+            if((i % 2) == 0)//Четные
+            {
+                Second_Values[j] = argv[i];
+                j++;
+            }
+            else if(i % 2 == 1)//нечетные
+            {
+                First_Value[z] = argv[i];
+                z++;
+            }
+        }
+    }
+
+    void Lexical_analyzer::Checking_the_Value_For_Insert()
+    {
+        int j = 0;
+        int z = 0;
+        if(count_argument <= 1)
+        {
+            std::cout << "Недостаточно аргументов" << '\n';
+            error = true;
         }
         for(int i = 2; i <= count_argument; i++)
         {//Четные - выбор типа данных, нечетные значение.
@@ -149,11 +189,10 @@ namespace lexor
             }
             else if(i % 2 == 1)//нечетные
             {
-                value[z] = argv[i];
+                First_Value[z] = argv[i];
                 z++;
             }
         }
-        return true;
     }
 
     bool Lexical_analyzer::Checking_count_argv()
@@ -165,8 +204,7 @@ namespace lexor
         else
         {
             return false;
-        }
-        
+        }   
     }
 
     void Lexical_analyzer::set_second_token(std::string second_token)
@@ -193,21 +231,21 @@ namespace lexor
     {
         return count_argument;
     }
-    void Lexical_analyzer::set_value(std::string *value)
+    void Lexical_analyzer::set_First_Value(std::string *First_Value)
     {
-        this->value = value;
+        this->First_Value = First_Value;
     }
     void Lexical_analyzer::set_TypeName(std::string *TypeName)
     {
         this->TypeName = TypeName;
     }
-    void Lexical_analyzer::ser_argv(std::string *argv)
+    void Lexical_analyzer::set_argv(std::string *argv)
     {
         this->argv = argv;
     }
-    std::string *Lexical_analyzer::get_value()
+    std::string *Lexical_analyzer::get_First_Value()
     {
-        return value;
+        return First_Value;
     }
     std::string *Lexical_analyzer::get_TypeName()
     {
@@ -216,5 +254,21 @@ namespace lexor
     std::string *Lexical_analyzer::get_argv()
     {
         return argv;
+    }
+    void Lexical_analyzer::set_Second_Values(std::string *Second_Values)
+    {
+        this->Second_Values = Second_Values;
+    }
+    std::string *Lexical_analyzer::get_Second_Values()
+    {
+        return Second_Values;
+    }
+    int Lexical_analyzer::get_count_commands()
+    {
+        return count_commands;
+    }
+    void Lexical_analyzer::set_count_commands(int count_commands)
+    {
+        this->count_commands = count_commands;
     }
 }

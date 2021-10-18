@@ -14,10 +14,10 @@ int main(/*int argc, char *argv[]*/)
     //sql::SqlStatement a;
     //a.CreateTableStatement("hello");
     //std::cout <<  << "\n";
-    lexor::Lexical_analyzer lex;
-    std::string sql_inquiry;
     std::cout << "Write sql inquiry" << '\n';
+    std::string sql_inquiry;
     std::getline(std::cin, sql_inquiry);
+    lexor::Lexical_analyzer lex(10);
     lex.parse_sql(sql_inquiry);
     
     return 0;
