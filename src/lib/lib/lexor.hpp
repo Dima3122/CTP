@@ -25,7 +25,11 @@ namespace lexor
             void Checking_the_Value_For_Insert();//проверка значений
             void Get_Values();//Получить значения в First_Value и Second_Values
             bool Checking_count_argv();
+
         public:
+            std::string Token_get();
+            std::string Token_peek();
+
             void parse_sql(std::string script_text);//начало парсинга
             Lexical_analyzer(int size);//конструктор
             //думаю что и так понятно=)

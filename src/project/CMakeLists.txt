@@ -9,5 +9,5 @@ target_link_libraries(main DropTableStatement)
 target_link_libraries(main DeleteStatement)
 target_link_libraries(main CreateTableStatement)
 target_link_libraries(main CLI11::CLI11)
-
+target_link_libraries(main NewLexer)
 set_compile_options(main)
