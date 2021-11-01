@@ -8,8 +8,7 @@ namespace sql
     class NewLexer
     {
     private:
-        std::regex rule;
-        //std::vector<std::regex> rule;//свод правил
+        std::vector<std::regex> rule;//свод правил (достать тот или иной токен)
         std::string parse_str;//строка которую парсим
         size_t pos_curs;
     public:

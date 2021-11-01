@@ -11,5 +11,6 @@ int main()
     std::getline(std::cin, sql_inquiry);
     sql::NewLexer lexer(sql_inquiry);
     std::cout << lexer.GetToken() << std::endl;
+    std::cout << lexer.GetToken() << std::endl;
     return 0;
 }

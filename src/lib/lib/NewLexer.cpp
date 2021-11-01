@@ -7,26 +7,34 @@ namespace sql
         this->parse_str = parse_str;
         pos_curs = 0;
         //инициализурем вектор
-        rule = "CREATE";
+        rule.push_back(std::regex("\\w{3,10}"));
         //придумать правила....
     }
 
     NewLexer::~NewLexer()
     {
     }
-
+    //ДОДУМАТЬ!!!!!!!!!!
     std::string NewLexer::GetToken()
     {
         std::smatch matches;
-        std::regex_search(parse_str, matches, rule);
-        //взять нужное....
-        return matches.str(0);
+        //продумать как это будет работать с множеством команд и токенов..
+        if(std::regex_search(parse_str, matches, rule[0]))
+        {        //каждый раз новое правило
+            std::string str = matches.str(pos_curs);
+            pos_curs++;
+            return str;
+        }
+        else
+        {
+            return "Токены кончились";
+        }
     }
 
     std::string NewLexer::PeekToken()
     {
         std::smatch matches;
-        std::regex_search(parse_str, matches, rule);
+        std::regex_search(parse_str, matches, rule[pos_curs]);
         //взять нужное....
         return matches.str(0);;
     }
