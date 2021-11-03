@@ -44,7 +44,7 @@ namespace sql
     public:
         Token GetToken();  //передается вся строка, но... по позиии
         Token PeekToken(); //курсора смотрим какое слово надо взять???
-        NewLexer(std::string parse_str);
+        NewLexer(std::string_view parse_str);
         ~NewLexer();
     };
 }

@@ -2,13 +2,13 @@
 
 namespace sql
 {
-    NewLexer::NewLexer(std::string parse_str)
+    NewLexer::NewLexer(std::string_view parse_str)
     {
         this->parse_str = parse_str;
         pos_curs = 0;
         //инициализурем вектор
         Rules = 
-        {
+        {   //std::regex_constants::icase Сопоставление символов должно выполняться без учета регистра.
             {std::regex("\".*?\"",std::regex_constants::icase), TokenType::String},
             {std::regex("[-+]?0|[-+]?[1-9][0-9]*",std::regex_constants::icase), TokenType::Int},
             {std::regex("[-+]?0.[0-9]+|[1-9][0-9]*.[0-9]*",std::regex_constants::icase), TokenType::Real},
@@ -47,10 +47,10 @@ namespace sql
             return NewLexer::FinalToken;
         }
         for (auto&& it : Rules)
-        {
-            std::cmatch match;
+        {   //поиск по строке в поисках подстрок, которые regex совпадения, regex_search
+            std::cmatch match;//Это экземпляр шаблона класса match_results для совпадений в строковых литералах
             if(std::regex_search(parse_str.data() + pos_curs, match, it.Regex,std::regex_constants::match_continuous))
-            {
+            {   //data() возвращает указатель на данные без каких-либо изменений.
                 return {it.Type, std::string_view(parse_str.data() + pos_curs, match.begin()->length())};
             }
         }
