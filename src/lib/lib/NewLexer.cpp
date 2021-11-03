@@ -7,36 +7,52 @@ namespace sql
         this->parse_str = parse_str;
         pos_curs = 0;
         //инициализурем вектор
-        rule.push_back(std::regex("\\w{3,10}"));
-        //придумать правила....
+        Rules = 
+        {
+            {std::regex(" ",std::regex_constants::icase), TokenType::String},
+            {std::regex(" ",std::regex_constants::icase), TokenType::Int},
+            {std::regex(" ",std::regex_constants::icase), TokenType::Real},
+            {std::regex(" ",std::regex_constants::icase), TokenType::Keyword},
+            {std::regex(" ",std::regex_constants::icase), TokenType::ID},
+            {std::regex(" ",std::regex_constants::icase), TokenType::Operation},
+            {std::regex(" ",std::regex_constants::icase), TokenType::CommonSeparation},
+            {std::regex(" ",std::regex_constants::icase), TokenType::Bracket},
+            {std::regex(" ",std::regex_constants::icase), TokenType::Semicolom},
+        };
     }
 
     NewLexer::~NewLexer()
     {
     }
+
+    std::ofstream& operator<<(std::ofstream& os, const Token& Token)
+    {
+        std::cout << "Lexem:" << Token.Lexem << "\n";
+        return os;
+    }
+
     //ДОДУМАТЬ!!!!!!!!!!
-    std::string NewLexer::GetToken()
+    Token NewLexer::GetToken()
     {
         std::smatch matches;
-        //продумать как это будет работать с множеством команд и токенов..
-        if(std::regex_search(parse_str, matches, rule[0]))
-        {        //каждый раз новое правило
-            std::string str = matches.str(pos_curs);
-            pos_curs++;
-            return str;
-        }
-        else
+        auto token = PeekToken();
+        pos_curs += token.Lexem.size();
+        return token;
+    }
+
+    Token NewLexer::PeekToken()
+    {
+        if(pos_curs >= parse_str.size())
         {
-            return "Токены кончились";
+            return NewLexer::FinalToken;
+        }
+        for (auto&& it : Rules)
+        {
+            std::cmatch match;
+            if(std::regex_search(parse_str.data() + pos_curs, match, it.Regex,std::regex_constants::match_continuous))
+            {
+                return {it.Type, std::string_view(parse_str.data() + pos_curs, match.begin()->length())};
+            }
         }
     }
-
-    std::string NewLexer::PeekToken()
-    {
-        std::smatch matches;
-        std::regex_search(parse_str, matches, rule[pos_curs]);
-        //взять нужное....
-        return matches.str(0);;
-    }
-
 }
