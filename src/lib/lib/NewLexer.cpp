@@ -9,15 +9,16 @@ namespace sql
         //инициализурем вектор
         Rules = 
         {
-            {std::regex(" ",std::regex_constants::icase), TokenType::String},
-            {std::regex(" ",std::regex_constants::icase), TokenType::Int},
-            {std::regex(" ",std::regex_constants::icase), TokenType::Real},
-            {std::regex(" ",std::regex_constants::icase), TokenType::Keyword},
-            {std::regex(" ",std::regex_constants::icase), TokenType::ID},
-            {std::regex(" ",std::regex_constants::icase), TokenType::Operation},
-            {std::regex(" ",std::regex_constants::icase), TokenType::CommonSeparation},
-            {std::regex(" ",std::regex_constants::icase), TokenType::Bracket},
-            {std::regex(" ",std::regex_constants::icase), TokenType::Semicolom},
+            {std::regex("\".*?\"",std::regex_constants::icase), TokenType::String},
+            {std::regex("[-+]?0|[-+]?[1-9][0-9]*",std::regex_constants::icase), TokenType::Int},
+            {std::regex("[-+]?0.[0-9]+|[1-9][0-9]*.[0-9]*",std::regex_constants::icase), TokenType::Real},
+            {std::regex("(SELECT|CREATE|INSERT|DELETE|DROP|FROM|TABLE|INTO|WHERE|VALUES)(?=\\W)",
+            std::regex_constants::icase), TokenType::Keyword},
+            {std::regex("[a-z][a-z0-9]*",std::regex_constants::icase), TokenType::ID},
+            {std::regex("=|!=|<|>|>=|=<",std::regex_constants::icase), TokenType::Operation},
+            {std::regex("\t|\r|\n|\\s|$",std::regex_constants::icase), TokenType::CommonSeparation},
+            {std::regex("[\\{\\}\\(\\)]",std::regex_constants::icase), TokenType::Bracket},
+            {std::regex(";",std::regex_constants::icase), TokenType::Semicolom},
         };
     }
 
@@ -31,7 +32,6 @@ namespace sql
         return os;
     }
 
-    //ДОДУМАТЬ!!!!!!!!!!
     Token NewLexer::GetToken()
     {
         std::smatch matches;
