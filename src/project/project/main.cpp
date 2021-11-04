@@ -10,7 +10,22 @@ int main()
     std::string sql_inquiry;
     std::getline(std::cin, sql_inquiry);
     sql::NewLexer lexer(sql_inquiry);
-    //std::cout << lexer.GetToken() << std::endl;
+    sql::Token a = lexer.GetToken();
+    std::cout << a.Lexem << std::endl;
+    a = lexer.GetToken();
+    std::cout << a.Lexem << std::endl;
+    a = lexer.GetToken();
+    std::cout << a.Lexem << std::endl;
+    a = lexer.GetToken();
+    std::cout << a.Lexem << std::endl;
+    a = lexer.GetToken();
+    std::cout << a.Lexem << std::endl;
+    a = lexer.GetToken();
+    std::cout << a.Lexem << std::endl;
+    a = lexer.GetToken();
+    std::cout << a.Lexem << std::endl;
+    a = lexer.GetToken();
+    std::cout << a.Lexem << std::endl;
     //std::cout << lexer.GetToken() << std::endl;
     return 0;
 }
