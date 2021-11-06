@@ -1,8 +1,7 @@
 #include <iostream>
-#include <lexor.hpp>
 #include <CLI.hpp>
 #include <string>
-#include <NewLexer.hpp>
+#include <NewLexer.cpp>
 
 int main()
 {

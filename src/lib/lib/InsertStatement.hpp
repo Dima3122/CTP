@@ -1,9 +1,5 @@
 #pragma once
-#include "SqlStatement.hpp"
-#include <iostream>
-#include <string>
-#include <variant>
-#include <vector>
+#include "SqlStatement.cpp"
 
 namespace sql {
 class InsertStatement : public SqlStatement {

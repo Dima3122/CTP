@@ -1,5 +1,5 @@
 #pragma once
-#include "SqlStatement.hpp"
+#include "SqlStatement.cpp"
 #include <string>
 //CREATE TABLE users (name TEXT, age INT);
 namespace sql

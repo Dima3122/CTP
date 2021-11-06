@@ -1,8 +1,6 @@
 project(Library)
-set(CMAKE_CXX_STANDARD 17)
-
+set(CMAKE_CXX_STANDARD 20)
 add_library(SqlStatement STATIC lib/SqlStatement.cpp)
-add_library(lexor STATIC lib/lexor.cpp)
 add_library(SelectStatement STATIC lib/SelectStatement.cpp)
 add_library(InsertStatement STATIC lib/InsertStatement.cpp)
 add_library(DropTableStatement STATIC lib/DropTableStatement.cpp)
