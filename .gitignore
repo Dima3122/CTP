@@ -1,3 +1,5 @@
 build
 external
 !external/CMakeLists.txt
+.idea
+.vscode
