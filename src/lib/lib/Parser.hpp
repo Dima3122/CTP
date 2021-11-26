@@ -16,7 +16,8 @@ namespace sql
     public:
         Parser(std::string sql_inquiry);
         ~Parser();
-        
+
+        void initial_sql_statements();
         int get_all_tokens();
         void run_parse();
     };

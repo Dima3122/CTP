@@ -9,6 +9,12 @@ namespace sql
         Tokens = new Token[100];
     }
 
+    void Parser::initial_sql_statements()
+    {
+        // sql_inquiry.push_back(new CreateTableStatement());
+        // sql_inquiry.push_back(new CreateTableStatement());
+    }
+
     int Parser::get_all_tokens()
     {
         int i = 0;
