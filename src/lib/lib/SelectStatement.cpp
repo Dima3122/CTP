@@ -2,5 +2,11 @@
 
 namespace sql
 {
-    
+    SelectStatement::SelectStatement()
+    {
+        
+    }
+    SelectStatement::~SelectStatement()
+    {
+    }
 }

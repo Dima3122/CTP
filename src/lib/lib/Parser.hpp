@@ -1,12 +1,13 @@
 #pragma once
+#include <vector>
+
 #include "SqlStatement.cpp"
 #include "NewLexer.hpp"
-#include <vector>
 #include "Error.cpp"
 
 namespace sql
 {
-    class Parser
+    class Parser : public SqlStatement
     {
     private:
         std::string sql_inquiry;

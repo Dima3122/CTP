@@ -10,6 +10,7 @@ private:
 
 public:
     InsertStatement(std::string table_name, std::string *column_names, std::string *values);
+    InsertStatement();
     void set_table_name(std::string table_name);
     void set_column_names(std::string *column_names);
     void set_values(std::string *values);

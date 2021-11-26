@@ -10,6 +10,7 @@ namespace sql
             std::string sql_inquiry;
         public:
         void get_all_tokens();
+        CreateTableStatement();
         CreateTableStatement(std::string sql_inquiry);
         std::string Create_Statement(std::string TableName, std::string *TypeName, std::string *value, int count_value);
         ~CreateTableStatement();

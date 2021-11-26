@@ -6,7 +6,11 @@ namespace sql
     {
         this->sql_inquiry = sql_inquiry;
     }
-
+    CreateTableStatement::CreateTableStatement()
+    {
+        //this->sql_inquiry = sql_inquiry;
+    }
+    
     void CreateTableStatement::get_all_tokens()
     {
         // while ()

@@ -11,6 +11,12 @@ bool only_letters(std::string str)
     }
     return true;
 }
+
+InsertStatement::InsertStatement()
+{
+
+}
+
 InsertStatement::InsertStatement(std::string table_name, std::string *column_names, std::string *values)
 {
     this->table_name = table_name;
