@@ -2,6 +2,7 @@
 #include <CLI.hpp>
 #include <string>
 #include <NewLexer.hpp>
+#include <Parser.hpp>
 
 int main()
 {

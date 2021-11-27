@@ -8,17 +8,8 @@ namespace sql
     }
     CreateTableStatement::CreateTableStatement()
     {
-        //this->sql_inquiry = sql_inquiry;
     }
     
-    void CreateTableStatement::get_all_tokens()
-    {
-        // while ()
-        // {
-        //     /* code */
-        // }
-    }
-
     std::string CreateTableStatement::Create_Statement(std::string TableName, std::string *TypeName, std::string *value, int count_value)
     {
         std::string result;

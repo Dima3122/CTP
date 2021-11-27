@@ -7,14 +7,15 @@ namespace sql
         lexer.set_parse_str(sql_inquiry);
         this->sql_inquiry = sql_inquiry;
         Tokens = new Token[100];
+        sql_statements.push_back(new CreateTableStatement());
+        sql_statements.push_back(new InsertStatement());
+        sql_statements.push_back(new SelectStatement());
+        sql_statements.push_back(new DeleteStatement());
+        sql_statements.push_back(new DropTableStatement());
     }
-
-    void Parser::initial_sql_statements()
+    Parser::Parser()
     {
-        // sql_inquiry.push_back(new CreateTableStatement());
-        // sql_inquiry.push_back(new CreateTableStatement());
     }
-
     int Parser::get_all_tokens()
     {
         int i = 0;

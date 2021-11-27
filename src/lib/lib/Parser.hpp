@@ -1,9 +1,12 @@
 #pragma once
 #include <vector>
-
-#include "SqlStatement.cpp"
+#include "InsertStatement.hpp"
+#include "DropTableStatement.hpp"
+#include "DeleteStatement.hpp"
+#include "SelectStatement.hpp"
+#include "CreateTableStatement.hpp"
+#include "SqlStatement.hpp"
 #include "NewLexer.hpp"
-#include "Error.cpp"
 
 namespace sql
 {
@@ -15,9 +18,9 @@ namespace sql
         sql::Token *Tokens;
     public:
         Parser(std::string sql_inquiry);
+        Parser();
         ~Parser();
 
-        void initial_sql_statements();
         int get_all_tokens();
         void run_parse();
     };

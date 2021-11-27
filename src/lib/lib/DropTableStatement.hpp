@@ -1,5 +1,5 @@
 #pragma once
-#include "SqlStatement.cpp"
+#include "SqlStatement.hpp"
 
 namespace sql
 {

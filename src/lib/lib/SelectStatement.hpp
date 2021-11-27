@@ -1,11 +1,9 @@
 #pragma once
-#include "SqlStatement.cpp"
+#include "SqlStatement.hpp"
 
 namespace sql
 {
     class SelectStatement : public SqlStatement
     {
-        SelectStatement();
-        ~SelectStatement();
     };
 }

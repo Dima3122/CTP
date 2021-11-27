@@ -1,5 +1,8 @@
-#include <iostream>
+#pragma once
 #include <string>
+#include <iostream>
+#include <vector>
+#include <memory>
 
 namespace sql
 {
@@ -13,5 +16,12 @@ namespace sql
     private:
         std::string msg;
     };
-
+ 
+    class SqlStatement
+    {
+    protected:
+        std::vector<SqlStatement*> sql_statements;
+    public:
+        virtual ~SqlStatement(){};
+    };
 }
