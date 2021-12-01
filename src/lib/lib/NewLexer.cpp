@@ -28,11 +28,6 @@ namespace sql
     {
     }
 
-    NewLexer::NewLexer()
-    {
-        
-    }
-
     std::ofstream &operator<<(std::ofstream &os, const Token &Token)
     {
         std::cout << "Lexem:" << Token.Lexem << "\n";
@@ -49,7 +44,7 @@ namespace sql
 
     void NewLexer::set_parse_str(std::string_view parse_str)
     {
-        this->parse_str = parse_str; 
+        this->parse_str = parse_str;
     }
 
     Token NewLexer::PeekToken()

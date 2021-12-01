@@ -2,5 +2,8 @@
 
 namespace sql
 {
-    
+    void DeleteStatement::Create_str()
+    {
+        
+    }    
 }

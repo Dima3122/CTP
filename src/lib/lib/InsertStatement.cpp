@@ -12,6 +12,11 @@ bool only_letters(std::string str)
     return true;
 }
 
+void InsertStatement::Create_str()
+{
+    
+}
+
 InsertStatement::InsertStatement()
 {
 

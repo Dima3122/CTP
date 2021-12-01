@@ -12,16 +12,15 @@ namespace sql
 {
     class Parser : public SqlStatement
     {
-    private:
-        std::string sql_inquiry;
-        sql::NewLexer lexer;
-        sql::Token *Tokens;
     public:
-        Parser(std::string sql_inquiry);
         Parser();
         ~Parser();
 
-        int get_all_tokens();
-        void run_parse();
+        void ParseCreateTableStatement(NewLexer& lexer);
+        void ParseSelectTableStatement(NewLexer& lexer);
+        void ParseDeleteTableStatement(NewLexer& lexer);
+        void ParseDropTableStatement(NewLexer& lexer);
+        void ParseInsertTableStatement(NewLexer& lexer);
+        void run_parse(std::string_view str);
     };
 }

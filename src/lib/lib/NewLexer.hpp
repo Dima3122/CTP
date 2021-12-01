@@ -45,7 +45,6 @@ namespace sql
         Token PeekToken(); //курсора смотрим какое слово надо взять???
         const char *GetTokenTypeName(TokenType type);
         NewLexer(std::string_view parse_str);
-        NewLexer();
         ~NewLexer();
 
         void set_parse_str(std::string_view parse_str);

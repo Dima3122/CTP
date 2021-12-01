@@ -10,6 +10,11 @@ namespace sql
     {
     }
     
+    void CreateTableStatement::Create_str()
+    {
+        
+    }
+
     std::string CreateTableStatement::Create_Statement(std::string TableName, std::string *TypeName, std::string *value, int count_value)
     {
         std::string result;

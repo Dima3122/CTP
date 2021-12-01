@@ -12,7 +12,6 @@ namespace sql
         LexError(std::string _msg) : msg(_msg) {}
         ~LexError() throw() {} // Updated
         const char *what() const throw() { return msg.c_str(); }
-
     private:
         std::string msg;
     };
@@ -22,6 +21,7 @@ namespace sql
     protected:
         std::vector<SqlStatement*> sql_statements;
     public:
+        virtual void Create_str(){};
         virtual ~SqlStatement(){};
     };
 }

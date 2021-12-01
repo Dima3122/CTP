@@ -21,5 +21,6 @@ namespace sql
         std::string *get_values();
         std::string insert_command();
         ~InsertStatement();
+        void Create_str() override;
     };
 }
