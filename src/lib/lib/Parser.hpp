@@ -1,26 +1,39 @@
 #pragma once
 #include <vector>
+#include <memory>
+#include "NewLexer.hpp"
 #include "InsertStatement.hpp"
 #include "DropTableStatement.hpp"
 #include "DeleteStatement.hpp"
 #include "SelectStatement.hpp"
 #include "CreateTableStatement.hpp"
 #include "SqlStatement.hpp"
-#include "NewLexer.hpp"
 
 namespace sql
 {
     class Parser : public SqlStatement
     {
+    private:
+        struct Error
+        {
+            std::string str;
+            std::string type;
+            std::string expected; 
+        };
+        struct SqlScript
+        {
+            std::vector<std::unique_ptr<SqlStatement>> Statements;
+            std::vector<Error> Errors;
+        };
+        SqlScript Script;
+        std::unique_ptr<SqlStatement> ParseCreateTableStatement(NewLexer &lexer);
+        std::unique_ptr<SqlStatement> ParseSelectTableStatement(NewLexer &lexer);
+        std::unique_ptr<SqlStatement> ParseDeleteTableStatement(NewLexer &lexer);
+        std::unique_ptr<SqlStatement> ParseDropTableStatement(NewLexer &lexer);
+        std::unique_ptr<SqlStatement> ParseInsertTableStatement(NewLexer &lexer);
     public:
         Parser();
-        ~Parser();
-
-        void ParseCreateTableStatement(NewLexer& lexer);
-        void ParseSelectTableStatement(NewLexer& lexer);
-        void ParseDeleteTableStatement(NewLexer& lexer);
-        void ParseDropTableStatement(NewLexer& lexer);
-        void ParseInsertTableStatement(NewLexer& lexer);
-        void run_parse(std::string_view str);
+        void run_parse(std::string str);
+        ~Parser() = default;
     };
 }

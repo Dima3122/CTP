@@ -2,8 +2,8 @@
 
 namespace sql
 {
-    void DeleteStatement::Create_str()
-    {
-        
-    }    
+    // void DeleteStatement::set_TableName(std::string_view TableName)
+    // {
+    //     this->TableName = TableName;
+    // }
 }

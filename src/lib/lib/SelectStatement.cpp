@@ -4,14 +4,15 @@ namespace sql
 {
     SelectStatement::SelectStatement()
     {
-        
-    }
-    SelectStatement::~SelectStatement()
-    {
 
     }
-    void SelectStatement::Create_str()
+    void SelectStatement::set_TableName(std::string_view TableName)
     {
+        this->TableName = TableName; 
+    }
 
+    std::string_view SelectStatement::get_TableName()
+    {
+        return TableName;
     }
 }

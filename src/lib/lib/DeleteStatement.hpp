@@ -2,9 +2,18 @@
 #include "SqlStatement.hpp"
 
 namespace sql
-{  
-    class DeleteStatement: public SqlStatement
+{
+    class DeleteStatement : public SqlStatement
     {
-        void Create_str() override;
+    private:
+        std::string TableName;
+    public:
+        DeleteStatement() = default;
+        ~DeleteStatement() = default;
+        // void set_TableName(std::string_view TableName);
+        void set_TableName(std::string_view TableName)
+        {
+            this->TableName = TableName;
+        }
     };
 }
