@@ -6,7 +6,7 @@ namespace sql
     {
     }
 
-    std::unique_ptr<SqlStatement> Parser::ParseDropTableStatement(NewLexer &lexer)
+    std::unique_ptr<sql::SqlStatement> Parser::ParseDropTableStatement(NewLexer &lexer)
     {
         std::unique_ptr<DeleteStatement> StatementDelete = std::make_unique<DeleteStatement>();
         Token token = lexer.GetToken();
@@ -30,7 +30,7 @@ namespace sql
         {
             /* code */
         }
-        return std::unique_ptr<DeleteStatement>(StatementDelete.release());
+        return std::unique_ptr<sql::DeleteStatement>(StatementDelete.release());
     }
 
     std::unique_ptr<SqlStatement> Parser::ParseCreateTableStatement(NewLexer &lexer)
@@ -134,8 +134,8 @@ namespace sql
         }
         return std::unique_ptr<DeleteStatement>(StatementDelete.release());
     }
-
-    void Parser::run_parse(std::string str)
+    
+    Parser::SqlScript Parser::run_parse(std::string str)
     {
         sql::NewLexer lexer(str);
         Token token;
@@ -168,5 +168,6 @@ namespace sql
             }
 
         } while (token.Type != TokenType::FinalToken);
+        // return Parser::Script;
     }
 }

@@ -11,14 +11,14 @@
 
 namespace sql
 {
-    class Parser : public SqlStatement
+    class Parser
     {
     private:
         struct Error
         {
             std::string str;
             std::string type;
-            std::string expected; 
+            std::string expected;
         };
         struct SqlScript
         {
@@ -31,9 +31,10 @@ namespace sql
         std::unique_ptr<SqlStatement> ParseDeleteTableStatement(NewLexer &lexer);
         std::unique_ptr<SqlStatement> ParseDropTableStatement(NewLexer &lexer);
         std::unique_ptr<SqlStatement> ParseInsertTableStatement(NewLexer &lexer);
+
     public:
+        Parser::SqlScript run_parse(std::string str);
         Parser();
-        void run_parse(std::string str);
         ~Parser() = default;
     };
 }
