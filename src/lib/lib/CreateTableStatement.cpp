@@ -10,4 +10,16 @@ namespace sql
     {
         this->TableName = TableName;
     }
+    void CreateTableStatement::get_data()
+    {
+        std::cout << "TableName " << TableName << std::endl;
+        for (int i = 0; i < columns.size(); i++)
+        {
+            std::cout << "column Name " << columns[i].ColumnName << " " <<"column type " << columns[i].TypeName << std::endl; 
+        }
+    }
+    void CreateTableStatement::set_colomns(struct ColumnDef a)
+    {
+        columns.emplace_back(a);
+    }
 }

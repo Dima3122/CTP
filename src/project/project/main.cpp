@@ -8,29 +8,15 @@
 #include <DeleteStatement.hpp>
 #include <DropTableStatement.hpp>
 #include "Parser.hpp"
+
 int main()
 {
-    std::cout << "Write sql inquiry" << '\n';
-    std::string sql_inquiry;
-    std::getline(std::cin, sql_inquiry);
-    SqlScript a = run_parse(sql_inquiry);
-    //pars.run_parse(sql_inquiry, sql_statements);
-    //sql::NewLexer lexer(sql_inquiry);
-    // sql::Token a = lexer.GetToken();
-    // std::cout << a.Lexem  << " "<< lexer.GetTokenTypeName(a.Type) <<std::endl;
-    // a = lexer.GetToken();
-    // std::cout << a.Lexem << " "<< lexer.GetTokenTypeName(a.Type) <<std::endl;
-    // a = lexer.GetToken();
-    // std::cout << a.Lexem << " "<< lexer.GetTokenTypeName(a.Type) <<std::endl;
-    // a = lexer.GetToken();
-    // std::cout << a.Lexem << " "<< lexer.GetTokenTypeName(a.Type) <<std::endl;
-    // a = lexer.GetToken();
-    // std::cout << a.Lexem << " "<< lexer.GetTokenTypeName(a.Type) <<std::endl;
-    // a = lexer.GetToken();
-    // std::cout << a.Lexem << " "<< std::endl;
-    // a = lexer.GetToken();
-    // std::cout << a.Lexem << " "<< std::endl;
-    // a = lexer.GetToken();
-    // std::cout << a.Lexem << std::endl;
+    // std::string sql_inquiry = "CREATE TABLE gamer ( name TEXT, age INT , coin REAL );DROP TABLE users";
+    // std::string sql_inquiry = "SELECT TABLE gamer2 ( name TEXT, age INT );";
+    std::string sql_inquiry = "DELETE TABLE gamer3 ( name TEXT, age INT );";
+    // std::string sql_inquiry = "INSERT TABLE gamer ( name TEXT, age INT );";
+    SqlScript SqlScript = run_parse(sql_inquiry);
+    SqlScript.Statements[0]->get_data();
+    // SqlScript.Statements[1]->get_data();
     return 0;
 }

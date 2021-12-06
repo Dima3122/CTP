@@ -19,7 +19,11 @@ struct SqlScript
     std::vector<std::unique_ptr<sql::SqlStatement>> Statements;
     std::vector<Error> Errors;
 };
-// extern SqlScript Script;
+struct ColumnDef
+{
+    std::string ColumnName;
+    std::string TypeName;
+};
 std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::NewLexer &lexer, SqlScript &result);
 std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::NewLexer &lexer, SqlScript &result);
 std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::NewLexer &lexer, SqlScript &result);

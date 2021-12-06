@@ -10,7 +10,7 @@ namespace sql
         public:
             DropTableStatement();
             ~DropTableStatement() = default;  
-
+            void get_data() override;
             void set_TableName(std::string TableName);
     };
 }

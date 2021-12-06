@@ -19,6 +19,8 @@ namespace sql
         Semicolon = 8,
         InvalidToken = 9,
         FinalToken = 10,
+        Comma = 11,
+        TypeName = 12
     };
 
     struct Token

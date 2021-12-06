@@ -21,6 +21,8 @@ namespace sql
                 {std::regex("\t|\r|\n|\\s|$", std::regex_constants::icase), TokenType::CommonSeparator},
                 {std::regex("[\\{\\}\\(\\)]", std::regex_constants::icase), TokenType::Bracket},
                 {std::regex(";", std::regex_constants::icase), TokenType::Semicolon},
+                {std::regex("(INT|REAL|TEXT)(?=\\W)", std::regex_constants::icase), TokenType::TypeName},
+                {std::regex(",", std::regex_constants::icase), TokenType::Comma}
             };
     }
 
@@ -34,17 +36,17 @@ namespace sql
         return os;
     }
 
+    void NewLexer::set_parse_str(std::string_view parse_str)
+    {
+        this->parse_str = parse_str;
+    }
+
     Token NewLexer::GetToken()
     {
         std::smatch matches;
         auto token = PeekToken();
         pos_curs += token.Lexem.size();
         return token;
-    }
-
-    void NewLexer::set_parse_str(std::string_view parse_str)
-    {
-        this->parse_str = parse_str;
     }
 
     Token NewLexer::PeekToken()
@@ -58,6 +60,7 @@ namespace sql
             std::cmatch match; //Это экземпляр шаблона класса match_results для совпадений в строковых литералах
             if (std::regex_search(parse_str.data() + pos_curs, match, it.Regex, std::regex_constants::match_continuous))
             { //data() возвращает указатель на данные без каких-либо изменений.
+
                 return {it.Type, std::string_view(parse_str.data() + pos_curs, match.begin()->length())};
             }
         }
@@ -90,6 +93,10 @@ namespace sql
             return "Bracket";
         case TokenType::Semicolon:
             return "Semicolon";
+        case TokenType::Comma:
+            return "Comma";
+        case TokenType::TypeName:
+            return "TypeName";
         }
         return "Unknown";
     }

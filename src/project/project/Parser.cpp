@@ -4,37 +4,53 @@ std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::NewLexer &lexer,
 {
     std::unique_ptr<sql::DeleteStatement> StatementDelete = std::make_unique<sql::DeleteStatement>();
     sql::Token token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     Error error;
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Drop"))
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "DROP"))
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = "DROP";
+        error.str = "Drop value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
     token = lexer.GetToken();
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Table"))
+    while (token.Type == sql::TokenType::CommonSeparator)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        token = lexer.GetToken();
+    }
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "TABLE"))
+    {
+        error.expected = "TABLE";
+        error.str = "Table value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::ID)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = "Table name";
+        error.str = "Table title expected";
+        error.type = "ID";
         result.Errors.push_back(error);
     }
     StatementDelete->set_TableName(token.Lexem);
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::Semicolon)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = ";";
+        error.str = "Expected ;";
+        error.type = "Semicolon";
         result.Errors.push_back(error);
     }
     return std::unique_ptr<sql::DeleteStatement>(StatementDelete.release());
@@ -44,37 +60,117 @@ std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::NewLexer &lexe
 {
     std::unique_ptr<sql::CreateTableStatement> StatementCreate = std::make_unique<sql::CreateTableStatement>();
     sql::Token token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     Error error;
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Drop"))
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "CREATE"))
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = "DROP";
+        error.str = "Create value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
+
     token = lexer.GetToken();
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Table"))
+    while (token.Type == sql::TokenType::CommonSeparator)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        token = lexer.GetToken();
+    }
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "TABLE"))
+    {
+        error.expected = "TABLE";
+        error.str = "Table value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
+
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::ID)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = "Table name";
+        error.str = "Table title expected";
+        error.type = "ID";
         result.Errors.push_back(error);
     }
     StatementCreate->set_TableName(token.Lexem);
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
+
+    if (token.Type != sql::TokenType::Bracket || (token.Type == sql::TokenType::Bracket && token.Lexem != "("))
+    {
+        error.expected = "(";
+        error.str = "Expected (";
+        error.type = "Bracket";
+        result.Errors.push_back(error);
+    }
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
+
+    while (token.Type != sql::TokenType::Bracket)
+    {
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+
+        if (token.Type != sql::TokenType::ID)
+        {
+            error.expected = "Column name";
+            error.str = "Expected column name";
+            error.type = "ID";
+            result.Errors.push_back(error);
+        }
+
+        sql::ColumnDef columnDef;
+        columnDef.ColumnName = token.Lexem;
+        token = lexer.GetToken();
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+
+        if (token.Type != sql::TokenType::TypeName)
+        {
+            error.expected = "column type";
+            error.str = "Expected column type";
+            error.type = "TypeName";
+            result.Errors.push_back(error);
+        }
+
+        columnDef.TypeName = token.Lexem;
+        token = lexer.GetToken();
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+        while (token.Type == sql::TokenType::Comma)
+        {
+            token = lexer.GetToken();
+        }
+        StatementCreate->set_colomns(columnDef);
+    }
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::Semicolon)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = ";";
+        error.str = "Expected ;";
+        error.type = "Semicolon";
         result.Errors.push_back(error);
     }
     return std::unique_ptr<sql::SqlStatement>(StatementCreate.release());
@@ -85,36 +181,116 @@ std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::NewLexer &lexe
     std::unique_ptr<sql::SelectStatement> StatementSelect = std::make_unique<sql::SelectStatement>();
     sql::Token token = lexer.GetToken();
     Error error;
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Drop"))
+    while (token.Type == sql::TokenType::CommonSeparator)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        token = lexer.GetToken();
+    }
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "SELECT"))
+    {
+        error.expected = "SELECT";
+        error.str = "SELECT value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
+
     token = lexer.GetToken();
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Table"))
+    while (token.Type == sql::TokenType::CommonSeparator)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        token = lexer.GetToken();
+    }
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "TABLE"))
+    {
+        error.expected = "TABLE";
+        error.str = "Table value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
+
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::ID)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = "Table name";
+        error.str = "Table title expected";
+        error.type = "ID";
         result.Errors.push_back(error);
     }
     StatementSelect->set_TableName(token.Lexem);
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
+
+    if (token.Type != sql::TokenType::Bracket || (token.Type == sql::TokenType::Bracket && token.Lexem != "("))
+    {
+        error.expected = "(";
+        error.str = "Expected (";
+        error.type = "Bracket";
+        result.Errors.push_back(error);
+    }
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
+
+    while (token.Type != sql::TokenType::Bracket)
+    {
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+
+        if (token.Type != sql::TokenType::ID)
+        {
+            error.expected = "Column name";
+            error.str = "Expected column name";
+            error.type = "ID";
+            result.Errors.push_back(error);
+        }
+
+        sql::ColumnDef columnDef;
+        columnDef.ColumnName = token.Lexem;
+        token = lexer.GetToken();
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+
+        if (token.Type != sql::TokenType::TypeName)
+        {
+            error.expected = "column type";
+            error.str = "Expected column type";
+            error.type = "TypeName";
+            result.Errors.push_back(error);
+        }
+
+        columnDef.TypeName = token.Lexem;
+        token = lexer.GetToken();
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+        while (token.Type == sql::TokenType::Comma)
+        {
+            token = lexer.GetToken();
+        }
+        StatementSelect->set_colomns(columnDef);
+    }
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::Semicolon)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = ";";
+        error.str = "Expected ;";
+        error.type = "Semicolon";
         result.Errors.push_back(error);
     }
     return std::unique_ptr<sql::SqlStatement>(StatementSelect.release());
@@ -125,36 +301,116 @@ std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::NewLexer &lexe
     std::unique_ptr<sql::InsertStatement> StatementInsert = std::make_unique<sql::InsertStatement>();
     sql::Token token = lexer.GetToken();
     Error error;
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Drop"))
+    while (token.Type == sql::TokenType::CommonSeparator)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        token = lexer.GetToken();
+    }
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "INSERT"))
+    {
+        error.expected = "INSERT";
+        error.str = "INSERT value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
+
     token = lexer.GetToken();
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Table"))
+    while (token.Type == sql::TokenType::CommonSeparator)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        token = lexer.GetToken();
+    }
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "TABLE"))
+    {
+        error.expected = "TABLE";
+        error.str = "Table value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
+
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::ID)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = "Table name";
+        error.str = "Table title expected";
+        error.type = "ID";
         result.Errors.push_back(error);
     }
-    //StatementInsert->TableName = token.Lexem;
     StatementInsert->set_TableName(token.Lexem);
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
+
+    if (token.Type != sql::TokenType::Bracket || (token.Type == sql::TokenType::Bracket && token.Lexem != "("))
+    {
+        error.expected = "(";
+        error.str = "Expected (";
+        error.type = "Bracket";
+        result.Errors.push_back(error);
+    }
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
+
+    while (token.Type != sql::TokenType::Bracket)
+    {
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+
+        if (token.Type != sql::TokenType::ID)
+        {
+            error.expected = "Column name";
+            error.str = "Expected column name";
+            error.type = "ID";
+            result.Errors.push_back(error);
+        }
+
+        sql::ColumnDef columnDef;
+        columnDef.ColumnName = token.Lexem;
+        token = lexer.GetToken();
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+
+        if (token.Type != sql::TokenType::ID)
+        {
+            error.expected = "column type";
+            error.str = "Expected column type";
+            error.type = "TypeName";
+            result.Errors.push_back(error);
+        }
+
+        columnDef.TypeName = token.Lexem;
+        token = lexer.GetToken();
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+        while (token.Type == sql::TokenType::Comma)
+        {
+            token = lexer.GetToken();
+        }
+        StatementInsert->set_colomns(columnDef);
+    }
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::Semicolon)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = ";";
+        error.str = "Expected ;";
+        error.type = "Semicolon";
         result.Errors.push_back(error);
     }
     return std::unique_ptr<sql::InsertStatement>(StatementInsert.release());
@@ -165,36 +421,116 @@ std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::NewLexer &lexe
     std::unique_ptr<sql::DeleteStatement> StatementDelete = std::make_unique<sql::DeleteStatement>();
     sql::Token token = lexer.GetToken();
     Error error;
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Drop"))
+    while (token.Type == sql::TokenType::CommonSeparator)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        token = lexer.GetToken();
+    }
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "DELETE"))
+    {
+        error.expected = "DELETE";
+        error.str = "DELETE value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
+
     token = lexer.GetToken();
-    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "Table"))
+    while (token.Type == sql::TokenType::CommonSeparator)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        token = lexer.GetToken();
+    }
+    if (!(token.Type == sql::TokenType::Keyword && token.Lexem == "TABLE"))
+    {
+        error.expected = "TABLE";
+        error.str = "Table value expected";
+        error.type = "Keyword";
         result.Errors.push_back(error);
     }
+
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::ID)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = "Table name";
+        error.str = "Table title expected";
+        error.type = "ID";
         result.Errors.push_back(error);
     }
     StatementDelete->set_TableName(token.Lexem);
     token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
+
+    if (token.Type != sql::TokenType::Bracket || (token.Type == sql::TokenType::Bracket && token.Lexem != "("))
+    {
+        error.expected = "(";
+        error.str = "Expected (";
+        error.type = "Bracket";
+        result.Errors.push_back(error);
+    }
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
+
+    while (token.Type != sql::TokenType::Bracket)
+    {
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+
+        if (token.Type != sql::TokenType::ID)
+        {
+            error.expected = "Column name";
+            error.str = "Expected column name";
+            error.type = "ID";
+            result.Errors.push_back(error);
+        }
+
+        sql::ColumnDef columnDef;
+        columnDef.ColumnName = token.Lexem;
+        token = lexer.GetToken();
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+
+        if (token.Type != sql::TokenType::ID)
+        {
+            error.expected = "column type";
+            error.str = "Expected column type";
+            error.type = "TypeName";
+            result.Errors.push_back(error);
+        }
+
+        columnDef.TypeName = token.Lexem;
+        token = lexer.GetToken();
+        while (token.Type == sql::TokenType::CommonSeparator)
+        {
+            token = lexer.GetToken();
+        }
+        while (token.Type == sql::TokenType::Comma)
+        {
+            token = lexer.GetToken();
+        }
+        StatementDelete->set_colomns(columnDef);
+    }
+    token = lexer.GetToken();
+    while (token.Type == sql::TokenType::CommonSeparator)
+    {
+        token = lexer.GetToken();
+    }
     if (token.Type != sql::TokenType::Semicolon)
     {
-        error.expected = "";
-        error.str = "";
-        error.type = "";
+        error.expected = ";";
+        error.str = "Expected ;";
+        error.type = "Semicolon";
         result.Errors.push_back(error);
     }
     return std::unique_ptr<sql::DeleteStatement>(StatementDelete.release());
@@ -231,9 +567,9 @@ SqlScript run_parse(std::string str)
         }
         else
         {
-            error.expected = "";
-            error.str = "";
-            error.type = "";
+            error.expected = "STATEMENT";
+            error.str = "Any statement expected";
+            error.type = "Keyword";
             result.Errors.push_back(error);
         }
 
