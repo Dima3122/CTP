@@ -2,8 +2,13 @@
 
 namespace sql
 {
-    // void DeleteStatement::set_TableName(std::string_view TableName)
-    // {
-    //     this->TableName = TableName;
-    // }
+    DeleteStatement::DeleteStatement()
+    {
+
+    }
+
+    void DeleteStatement::set_TableName(std::string_view TableName)
+    {
+        this->TableName = TableName;
+    }
 }

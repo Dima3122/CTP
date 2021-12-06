@@ -9,13 +9,10 @@ namespace sql
     private:
         std::string_view TableName;
     public:
-        InsertStatement() = default;
+        InsertStatement();
         ~InsertStatement() = default;
 
-        void set_TableName(std::string_view TableName)
-        {
-            this->TableName = TableName;
-        }
+        void set_TableName(std::string_view TableName);
         std::string_view get_TableName();
     };
 }

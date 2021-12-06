@@ -1,5 +1,6 @@
 #pragma once
 #include "SqlStatement.hpp"
+#include <string>
 
 namespace sql
 {
@@ -8,12 +9,8 @@ namespace sql
     private:
         std::string TableName;
     public:
-        DeleteStatement() = default;
+        DeleteStatement();
         ~DeleteStatement() = default;
-        // void set_TableName(std::string_view TableName);
-        void set_TableName(std::string_view TableName)
-        {
-            this->TableName = TableName;
-        }
+        void set_TableName(std::string_view TableName);
     };
 }
