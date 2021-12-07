@@ -27,4 +27,8 @@ namespace sql
     {
         return TableName;
     }
+    std::vector<ColumnDef> InsertStatement::get_colums()
+    {
+        return columns;
+    }
 }

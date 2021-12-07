@@ -22,4 +22,12 @@ namespace sql
     {
         columns.emplace_back(a);
     }
+    std::string DeleteStatement::get_TableName()
+    {
+        return TableName;
+    }
+    std::vector<ColumnDef> DeleteStatement::get_colums()
+    {
+        return columns;
+    }
 }

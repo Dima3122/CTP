@@ -1,10 +1,9 @@
 #include "DropTableStatement.hpp"
 
 namespace sql
-{  
+{
     DropTableStatement::DropTableStatement()
     {
-        
     }
     void DropTableStatement::get_data()
     {
@@ -13,5 +12,9 @@ namespace sql
     void DropTableStatement::set_TableName(std::string_view TableName)
     {
         this->TableName = TableName;
+    }
+    std::string DropTableStatement::get_TableName()
+    {
+        return TableName;
     }
 }

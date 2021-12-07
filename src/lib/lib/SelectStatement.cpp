@@ -26,4 +26,9 @@ namespace sql
     {
         columns.emplace_back(a);
     }
+
+    std::vector<ColumnDef> SelectStatement::get_colums()
+    {
+        return columns;
+    }
 }

@@ -14,7 +14,9 @@ namespace sql
         ~InsertStatement() = default;
         void get_data() override;
         void set_TableName(std::string_view TableName) override;
-        std::string get_TableName();
         void set_colomns(struct ColumnDef a) override;
+        
+        std::string get_TableName() override;
+        std::vector<ColumnDef> get_colums() override;
     };
 }

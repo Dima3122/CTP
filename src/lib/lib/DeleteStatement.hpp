@@ -15,5 +15,8 @@ namespace sql
         void get_data() override;
         void set_TableName(std::string_view TableName) override;
         void set_colomns(struct ColumnDef a) override;
+
+        std::string get_TableName() override;
+        std::vector<ColumnDef> get_colums() override;
     };
 }
