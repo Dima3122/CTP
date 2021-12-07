@@ -1,13 +1,7 @@
 #include <iostream>
 #include <string>
 #include <NewLexer.hpp>
-#include <SelectStatement.hpp>
-#include <CreateTableStatement.hpp>
-#include <SqlStatement.hpp>
-#include <InsertStatement.hpp>
-#include <DeleteStatement.hpp>
-#include <DropTableStatement.hpp>
-#include "Parser.hpp"
+#include <Parser.hpp>
 
 int main()
 {

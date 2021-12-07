@@ -1,6 +1,8 @@
 #include <gtest.h>
 #include <iostream>
 #include <string>
+#include <NewLexer.hpp>
+#include <Parser.hpp>
 
 TEST(test_case_name, test_name)
 {

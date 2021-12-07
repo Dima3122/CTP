@@ -4,7 +4,6 @@
 
 namespace sql
 {
-    
     class SelectStatement : public SqlStatement
     {
     private:
@@ -14,8 +13,8 @@ namespace sql
         SelectStatement();
         ~SelectStatement() = default;
         void get_data() override;
-        void set_TableName(std::string_view TableName);
-        std::string_view get_TableName();
-        void set_colomns(struct ColumnDef a);
+        void set_TableName(std::string_view TableName) override;
+        std::string get_TableName();
+        void set_colomns(struct ColumnDef a) override;
     };
 }

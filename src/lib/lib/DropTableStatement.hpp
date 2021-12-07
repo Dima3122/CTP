@@ -11,6 +11,6 @@ namespace sql
             DropTableStatement();
             ~DropTableStatement() = default;  
             void get_data() override;
-            void set_TableName(std::string TableName);
+            void set_TableName(std::string_view TableName) override;
     };
 }

@@ -13,7 +13,7 @@ namespace sql
         DeleteStatement();
         ~DeleteStatement() = default;
         void get_data() override;
-        void set_TableName(std::string_view TableName);
-        void set_colomns(struct ColumnDef a);
+        void set_TableName(std::string_view TableName) override;
+        void set_colomns(struct ColumnDef a) override;
     };
 }
