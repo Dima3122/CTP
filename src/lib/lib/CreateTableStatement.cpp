@@ -20,7 +20,7 @@ namespace sql
         for (int i = 0; i < columns.size(); i++)
         {
             std::cout << "column Name " << columns[i].ColumnName << " "
-                      << "column type " << columns[i].TypeName << std::endl;
+                      << "column type " << columns[i].TypeName_or_value << std::endl;
         }
     }
     void CreateTableStatement::set_colomns(struct ColumnDef a)

@@ -8,16 +8,16 @@ namespace sql
     {
     private:
         std::string TableName;
-        std::vector<ColumnDef> columns;
+        std::vector<Expression> columns;
     public:
         DeleteStatement();
         ~DeleteStatement() = default;
         void get_data() override;
-        void set_TableName(std::string_view TableName) override;
-        void set_colomns(struct ColumnDef a) override;
+        void set_TableName(std::string_view TableName);
+        void set_colomns(struct Expression a);
 
         std::string get_TableName() override;
-        std::vector<ColumnDef> get_colums() override;
+        std::vector<Expression> get_colums();
 
         void execute(/*rdb::Database& db*/) override;
     };

@@ -19,18 +19,20 @@ namespace sql
         std::cout << "TableName " << TableName << std::endl;
         for (int i = 0; i < columns.size(); i++)
         {
-            std::cout << "column Name " << columns[i].ColumnName << " " << "column type " << columns[i].TypeName << std::endl; 
+            std::cout << "Operand1 " << columns[i].Operand1 << " "
+                      << "Operation " << columns[i].Operation << " "
+                      << "Operand2 " << columns[i].Operand2 << std::endl;
         }
     }
     std::string DeleteStatement::get_TableName()
     {
         return TableName;
     }
-    void DeleteStatement::set_colomns(struct ColumnDef a)
+    void DeleteStatement::set_colomns(struct Expression a)
     {
         columns.emplace_back(a);
     }
-    std::vector<ColumnDef> DeleteStatement::get_colums()
+    std::vector<Expression> DeleteStatement::get_colums()
     {
         return columns;
     }

@@ -15,8 +15,9 @@ namespace sql
         std::cout << "TableName " << TableName << std::endl;
         for (int i = 0; i < columns.size(); i++)
         {
-            std::cout << "column Name " << columns[i].ColumnName << " "
-                      << "column type " << columns[i].TypeName << std::endl;
+            std::cout << "Operand1 " << columns[i].Operand1 << " "
+                      << "Operation " << columns[i].Operation << " "
+                      << "Operand2 " << columns[i].Operand2 << std::endl;
         }
     }
     void SelectStatement::set_TableName(std::string_view TableName)
@@ -27,12 +28,12 @@ namespace sql
     {
         return TableName;
     }
-    void SelectStatement::set_colomns(struct ColumnDef a)
+    void SelectStatement::set_colomns(struct Expression a)
     {
         columns.emplace_back(a);
     }
 
-    std::vector<ColumnDef> SelectStatement::get_colums()
+    std::vector<Expression> SelectStatement::get_colums()
     {
         return columns;
     }
