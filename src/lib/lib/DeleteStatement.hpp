@@ -18,5 +18,7 @@ namespace sql
 
         std::string get_TableName() override;
         std::vector<ColumnDef> get_colums() override;
+
+        void execute(/*rdb::Database& db*/) override;
     };
 }

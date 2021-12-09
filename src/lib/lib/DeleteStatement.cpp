@@ -6,6 +6,10 @@ namespace sql
     {
         
     }
+    void DeleteStatement::execute()
+    {
+        
+    }
     void DeleteStatement::set_TableName(std::string_view TableName)
     {
         this->TableName = TableName;
@@ -18,13 +22,13 @@ namespace sql
             std::cout << "column Name " << columns[i].ColumnName << " " << "column type " << columns[i].TypeName << std::endl; 
         }
     }
-    void DeleteStatement::set_colomns(struct ColumnDef a)
-    {
-        columns.emplace_back(a);
-    }
     std::string DeleteStatement::get_TableName()
     {
         return TableName;
+    }
+    void DeleteStatement::set_colomns(struct ColumnDef a)
+    {
+        columns.emplace_back(a);
     }
     std::vector<ColumnDef> DeleteStatement::get_colums()
     {

@@ -5,6 +5,11 @@ namespace sql
     SelectStatement::SelectStatement()
     {
     }
+
+    void SelectStatement::execute()
+    {
+        
+    }
     void SelectStatement::get_data()
     {
         std::cout << "TableName " << TableName << std::endl;

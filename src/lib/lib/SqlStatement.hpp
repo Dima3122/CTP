@@ -21,5 +21,7 @@ namespace sql
         
         virtual std::string get_TableName() = 0;
         virtual std::vector<ColumnDef> get_colums() = 0;
+
+        virtual void execute(/*rdb::Database& db*/) = 0;
     };
 }
