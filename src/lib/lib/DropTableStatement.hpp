@@ -19,6 +19,6 @@ namespace sql
         void set_TableName(std::string_view TableName);
         std::string get_TableName() override;
         
-        void accept(Visitor &visitor) override;
+        void accept(ExecuteVisitor &visitor) override;
     };
 }

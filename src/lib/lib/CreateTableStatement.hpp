@@ -20,6 +20,6 @@ namespace sql
         std::string get_TableName() override;
         std::vector<ColumnDef> get_colums();
 
-        void accept(Visitor &visitor) override;
+        void accept(ExecuteVisitor &visitor) override;
     };
 }

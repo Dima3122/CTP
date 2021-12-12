@@ -6,7 +6,7 @@ namespace sql
     {
     }
 
-    void InsertStatement::accept(Visitor &visitor)
+    void InsertStatement::accept(ExecuteVisitor &visitor)
     {
         visitor.visit(*this);
     }

@@ -2,8 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "Visitor.hpp"
-
+#include "ExecuteVisitor.hpp"
 namespace sql
 {
     struct ColumnDef
@@ -25,6 +24,6 @@ namespace sql
 
         virtual std::string get_TableName() = 0;
 
-        virtual void accept(Visitor &visitor) = 0;
+        virtual void accept(ExecuteVisitor &visitor) = 0;
     };    
 }

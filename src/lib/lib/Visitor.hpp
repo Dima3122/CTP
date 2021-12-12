@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 // #include "InsertStatement.hpp"
 // #include "DropTableStatement.hpp"

@@ -2,6 +2,10 @@
 
 namespace sql
 {
+    ExecuteVisitor::ExecuteVisitor()
+    {
+        
+    }
     void ExecuteVisitor::visit(sql::CreateTableStatement &CreateStatement)
     {
 

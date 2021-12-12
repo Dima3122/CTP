@@ -6,7 +6,7 @@ namespace sql
     {
         
     }
-    void DeleteStatement::accept(Visitor &visitor)
+    void DeleteStatement::accept(ExecuteVisitor &visitor)
     {
         visitor.visit(*this);
     }

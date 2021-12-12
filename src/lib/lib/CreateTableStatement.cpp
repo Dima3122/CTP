@@ -6,7 +6,7 @@ namespace sql
     {
     }
 
-    void CreateTableStatement::accept(Visitor &visitor)
+    void CreateTableStatement::accept(ExecuteVisitor &visitor)
     {
         visitor.visit(*this);
     }

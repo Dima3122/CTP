@@ -5,7 +5,7 @@ namespace sql
     DropTableStatement::DropTableStatement()
     {
     }
-    void DropTableStatement::accept(Visitor &visitor)
+    void DropTableStatement::accept(ExecuteVisitor &visitor)
     {
         visitor.visit(*this);
     }
