@@ -6,9 +6,9 @@ namespace sql
     {
         
     }
-    void DeleteStatement::execute()
+    void DeleteStatement::accept(Visitor &visitor)
     {
-        
+        visitor.visit(*this);
     }
     void DeleteStatement::set_TableName(std::string_view TableName)
     {

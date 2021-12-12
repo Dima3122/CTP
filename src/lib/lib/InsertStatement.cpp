@@ -6,9 +6,9 @@ namespace sql
     {
     }
 
-    void InsertStatement::execute()
+    void InsertStatement::accept(Visitor &visitor)
     {
-
+        visitor.visit(*this);
     }
     void InsertStatement::set_TableName(std::string_view TableName)
     {

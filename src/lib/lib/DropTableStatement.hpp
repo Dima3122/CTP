@@ -19,6 +19,6 @@ namespace sql
         void set_TableName(std::string_view TableName);
         std::string get_TableName() override;
         
-        void execute(/*rdb::Database& db*/) override;
+        void accept(Visitor &visitor) override;
     };
 }

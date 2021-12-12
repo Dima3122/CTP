@@ -1,52 +1,40 @@
 #include <iostream>
-#include "InsertStatement.hpp"
-#include "DropTableStatement.hpp"
-#include "DeleteStatement.hpp"
-#include "SelectStatement.hpp"
-#include "CreateTableStatement.hpp"
-#include "SqlStatement.hpp"
+// #include "InsertStatement.hpp"
+// #include "DropTableStatement.hpp"
+// #include "DeleteStatement.hpp"
+// #include "SelectStatement.hpp"
+// #include "CreateTableStatement.hpp"
+// #include "SqlStatement.hpp"
 
-class Visitor
+namespace sql
 {
-private:
-    /* data */
-public:
-    virtual void visitCreateTableStatement(sql::CreateTableStatement a) = 0;
-    virtual void visitSelectTableStatement(sql::SelectStatement a) = 0;
-    virtual void visitIntertTableStatement(sql::InsertStatement a) = 0;
-    virtual void visitDeleteTableStatement(sql::DeleteStatement a) = 0;
-    virtual void visitDropTableStatement(sql::DropTableStatement a) = 0;
-    virtual ~Visitor() = default;
-};
+    class CreateTableStatement;
+    class SelectStatement;
+    class InsertStatement;
+    class DeleteStatement;
+    class DropTableStatement;
 
-class executeVisitor : public Visitor
-{
-private:
-    /* data */
-public:
+    class Visitor
+    {
+    public:
+        virtual void visit(sql::CreateTableStatement &CreateStatement) = 0;
+        virtual void visit(sql::SelectStatement &SelectStatement) = 0;
+        virtual void visit(sql::InsertStatement &InsertStatement) = 0;
+        virtual void visit(sql::DeleteStatement &DeleteStatement) = 0;
+        virtual void visit(sql::DropTableStatement &DropStatement) = 0;
+        virtual ~Visitor() = default;
+    };
 
-    void visitCreateTableStatement(sql::SelectStatement a)
-    {
-        //......
-    }
+    // class ExecuteVisitor : public Visitor
+    // {
+    // public:
+    //     void visit(sql::CreateTableStatement &CreateStatement) override;
+    //     void visit(sql::SelectStatement &SelectStatement) override;
+    //     void visit(sql::InsertStatement &InsertStatement) override;
+    //     void visit(sql::DeleteStatement &DeleteStatement) override;
+    //     void visit(sql::DropTableStatement &DropStatement) override;
 
-    void visitSelectTableStatement(sql::SelectStatement a)
-    {
-        //......
-    }
-    void visitIntertTableStatement(sql::InsertStatement a)
-    {
-        //......
-    }
-    void visitDeleteTableStatement(sql::DeleteStatement a)
-    {
-        //......
-    }
-    void visitDropTableStatement(sql::DropTableStatement a)
-    {
-        //......
-    }
-
-    executeVisitor();
-    ~executeVisitor() = default;
-};
+    //     ExecuteVisitor();
+    //     ~ExecuteVisitor() = default;
+    // };
+}

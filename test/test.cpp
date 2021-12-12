@@ -13,7 +13,7 @@ TEST(testing_lexer, test_get_token)
 	token = lexer.GetToken();
 	std::string result(token.Lexem);
 	if (token.Type == sql::TokenType::ID)
-	{
+	{	
 		ASSERT_STRCASEEQ("TABLE", result.c_str());
 	}
 	else

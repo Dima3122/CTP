@@ -6,9 +6,9 @@ namespace sql
     {
     }
 
-    void SelectStatement::execute()
+    void SelectStatement::accept(Visitor &visitor)
     {
-        
+        visitor.visit(*this);
     }
     void SelectStatement::get_data()
     {

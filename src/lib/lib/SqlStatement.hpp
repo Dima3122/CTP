@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include "Visitor.hpp"
 
 namespace sql
 {
@@ -24,6 +25,6 @@ namespace sql
 
         virtual std::string get_TableName() = 0;
 
-        virtual void execute(/*rdb::Database& db*/) = 0;
-    };
+        virtual void accept(Visitor &visitor) = 0;
+    };    
 }

@@ -6,9 +6,9 @@ namespace sql
     {
     }
 
-    void CreateTableStatement::execute(/*rdb::Database& db*/)
+    void CreateTableStatement::accept(Visitor &visitor)
     {
-
+        visitor.visit(*this);
     }
     void CreateTableStatement::set_TableName(std::string_view TableName)
     {

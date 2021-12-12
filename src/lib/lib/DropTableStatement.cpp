@@ -5,9 +5,9 @@ namespace sql
     DropTableStatement::DropTableStatement()
     {
     }
-    void DropTableStatement::execute()
+    void DropTableStatement::accept(Visitor &visitor)
     {
-        
+        visitor.visit(*this);
     }
     void DropTableStatement::set_colomns(struct ColumnDef a)
     {
