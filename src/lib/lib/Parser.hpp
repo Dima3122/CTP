@@ -7,7 +7,7 @@
 #include "SelectStatement.hpp"
 #include "CreateTableStatement.hpp"
 #include "SqlStatement.hpp"
-
+#include "Visitor.hpp"
 struct Error
 {
     std::string str;

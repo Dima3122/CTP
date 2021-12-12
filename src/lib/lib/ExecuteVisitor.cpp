@@ -1,29 +1,31 @@
 #include "ExecuteVisitor.hpp"
+#include "SqlStatement.hpp"
+#include "CreateTableStatement.hpp"
+#include "SelectStatement.hpp"
+#include "InsertStatement.hpp"
+#include "DeleteStatement.hpp"
+#include "DropTableStatement.hpp"
 
 namespace sql
 {
     ExecuteVisitor::ExecuteVisitor()
     {
-        
     }
-    void ExecuteVisitor::visit(sql::CreateTableStatement &CreateStatement)
+    void ExecuteVisitor::visit(CreateTableStatement &CreateStatement)
     {
-
+        CreateStatement.get_data();
     }
-    void ExecuteVisitor::visit(sql::SelectStatement &SelectStatement)
+    void ExecuteVisitor::visit(SelectStatement &SelectStatement)
     {
-
     }
-    void ExecuteVisitor::visit(sql::InsertStatement &InsertStatement)
+    void ExecuteVisitor::visit(InsertStatement &InsertStatement)
     {
-
     }
-    void ExecuteVisitor::visit(sql::DeleteStatement &DeleteStatement)
+    void ExecuteVisitor::visit(DeleteStatement &DeleteStatement)
     {
-
     }
-    void ExecuteVisitor::visit(sql::DropTableStatement &DropStatement)
+    void ExecuteVisitor::visit(DropTableStatement &DropStatement)
     {
-        // DropStatement.get_data();
+        DropStatement.get_data();
     }
 }

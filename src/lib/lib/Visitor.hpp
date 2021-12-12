@@ -1,11 +1,6 @@
 #pragma once
 #include <iostream>
-// #include "InsertStatement.hpp"
-// #include "DropTableStatement.hpp"
-// #include "DeleteStatement.hpp"
-// #include "SelectStatement.hpp"
-// #include "CreateTableStatement.hpp"
-// #include "SqlStatement.hpp"
+// #include "Parser.hpp"
 
 namespace sql
 {
@@ -24,18 +19,6 @@ namespace sql
         virtual void visit(sql::DeleteStatement &DeleteStatement) = 0;
         virtual void visit(sql::DropTableStatement &DropStatement) = 0;
         virtual ~Visitor() = default;
+        Visitor() = default;
     };
-
-    // class ExecuteVisitor : public Visitor
-    // {
-    // public:
-    //     void visit(sql::CreateTableStatement &CreateStatement) override;
-    //     void visit(sql::SelectStatement &SelectStatement) override;
-    //     void visit(sql::InsertStatement &InsertStatement) override;
-    //     void visit(sql::DeleteStatement &DeleteStatement) override;
-    //     void visit(sql::DropTableStatement &DropStatement) override;
-
-    //     ExecuteVisitor();
-    //     ~ExecuteVisitor() = default;
-    // };
 }

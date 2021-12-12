@@ -1,16 +1,17 @@
 #pragma once
 #include <iostream>
 #include "Visitor.hpp"
+
 namespace sql
 {
     class ExecuteVisitor : public Visitor
     {
     public:
-        void visit(sql::CreateTableStatement &CreateStatement) override;
-        void visit(sql::SelectStatement &SelectStatement) override;
-        void visit(sql::InsertStatement &InsertStatement) override;
-        void visit(sql::DeleteStatement &DeleteStatement) override;
-        void visit(sql::DropTableStatement &DropStatement) override;
+        void visit(CreateTableStatement &CreateStatement) override;
+        void visit(SelectStatement &SelectStatement) override;
+        void visit(InsertStatement &InsertStatement) override;
+        void visit(DeleteStatement &DeleteStatement) override;
+        void visit(DropTableStatement &DropStatement) override;
 
         ExecuteVisitor();
         ~ExecuteVisitor() = default;
