@@ -1,6 +1,6 @@
 project(Library)
 set(CMAKE_CXX_STANDARD 20)
-add_library(Statements STATIC lib/SqlStatement.cpp lib/SelectStatement.cpp lib/InsertStatement.cpp lib/DropTableStatement.cpp lib/DeleteStatement.cpp lib/CreateTableStatement.cpp lib/Visitor.cpp lib/ExecuteVisitor.cpp)
+add_library(Statements STATIC lib/SelectStatement.cpp lib/InsertStatement.cpp lib/DropTableStatement.cpp lib/DeleteStatement.cpp lib/CreateTableStatement.cpp lib/ExecuteVisitor.cpp)
 # add_library(SelectStatement STATIC lib/SelectStatement.cpp)
 # add_library(InsertStatement STATIC lib/InsertStatement.cpp)
 # add_library(DropTableStatement STATIC lib/DropTableStatement.cpp)
