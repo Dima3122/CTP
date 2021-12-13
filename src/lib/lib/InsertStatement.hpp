@@ -10,13 +10,13 @@ namespace sql
         std::string TableName;
         std::vector<ColumnDef> columns;
     public:
-        InsertStatement();
+        InsertStatement() = default;
         ~InsertStatement() = default;
 
-        void get_data() override;
+        void write_data() override;
         
         void set_TableName(std::string_view TableName);
-        void set_colomns(struct ColumnDef a);
+        void set_colomns(ColumnDef a);
         
         std::string get_TableName() override;
         std::vector<ColumnDef> get_colums();

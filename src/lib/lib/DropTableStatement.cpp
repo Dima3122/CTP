@@ -2,24 +2,13 @@
 
 namespace sql
 {
-    DropTableStatement::DropTableStatement()
-    {
-    }
     void DropTableStatement::accept(ExecuteVisitor &visitor)
     {
         visitor.visit(*this);
     }
-    void DropTableStatement::set_colomns(struct ColumnDef a)
+    void DropTableStatement::write_data()
     {
-        columns.emplace_back(a);
-    }
-    std::vector<ColumnDef> DropTableStatement::get_colums()
-    {
-        return columns;
-    }
-    void DropTableStatement::get_data()
-    {
-        std::cout << "TableName " << TableName << std::endl;
+        std::cout << "TableName " << TableName << '\n';
     }
     void DropTableStatement::set_TableName(std::string_view TableName)
     {

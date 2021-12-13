@@ -29,7 +29,7 @@ namespace sql
         std::string_view Lexem = "";
     };
 
-    class NewLexer
+    class Lexer
     {
     private:
         struct Rule
@@ -46,8 +46,8 @@ namespace sql
         Token GetToken();  //передается вся строка, но... по позиии
         Token PeekToken(); //курсора смотрим какое слово надо взять???
         const char *GetTokenTypeName(TokenType type);
-        NewLexer(std::string_view parse_str);
-        ~NewLexer();
+        Lexer(std::string_view parse_str);
+        ~Lexer();
 
         void set_parse_str(std::string_view parse_str);
         

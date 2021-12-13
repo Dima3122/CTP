@@ -1,13 +1,13 @@
 #include <gtest.h>
 #include <iostream>
 #include <string>
-#include <NewLexer.hpp>
+#include <Lexer.hpp>
 #include <Parser.hpp>
 
 TEST(testing_lexer, test_get_token)
 {
 	std::string str = "CREATE TABLE";
-	sql::NewLexer lexer(str);
+	sql::Lexer lexer(str);
 	sql::Token token = lexer.GetToken();
 	token = lexer.GetToken();
 	token = lexer.GetToken();
@@ -25,7 +25,7 @@ TEST(testing_lexer, test_get_token)
 TEST(testing_lexer, test_peek_token)
 {
 	std::string str = "DELETE TABLE";
-	sql::NewLexer lexer(str);
+	sql::Lexer lexer(str);
 	sql::Token token = lexer.PeekToken();
 	token = lexer.GetToken();
 	std::string result(token.Lexem);
@@ -42,7 +42,7 @@ TEST(testing_lexer, test_peek_token)
 TEST(testing_lexer, test_get_token_type)
 {
 	std::string str = "DELETE TABLE";
-	sql::NewLexer lexer(str);
+	sql::Lexer lexer(str);
 	sql::Token token = lexer.GetToken();
 	std::string result = lexer.GetTokenTypeName(token.Type);
 	ASSERT_STRCASEEQ("keyword", result.c_str()) << "Строки не равны";
@@ -51,7 +51,7 @@ TEST(testing_lexer, test_get_token_type)
 TEST(testing_parser_create_statement, test_create_statement_1)
 {
 	std::string sql_inquiry = "CREATE TABLE gamer ( name TEXT, age INT , coin REAL );";
-    sql::NewLexer lexer(sql_inquiry);
+    sql::Lexer lexer(sql_inquiry);
     // result = ParseCreateTableStatement(lexer, result);
     SqlScript SqlScript = run_parse(sql_inquiry);
 	std::string result = SqlScript.Statements[0]->get_TableName();

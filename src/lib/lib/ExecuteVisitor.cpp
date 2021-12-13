@@ -8,12 +8,9 @@
 
 namespace sql
 {
-    ExecuteVisitor::ExecuteVisitor()
-    {
-    }
     void ExecuteVisitor::visit(CreateTableStatement &CreateStatement)
     {
-        CreateStatement.get_data();
+        CreateStatement.write_data();
     }
     void ExecuteVisitor::visit(SelectStatement &SelectStatement)
     {
@@ -26,6 +23,6 @@ namespace sql
     }
     void ExecuteVisitor::visit(DropTableStatement &DropStatement)
     {
-        DropStatement.get_data();
+        DropStatement.write_data();
     }
 }

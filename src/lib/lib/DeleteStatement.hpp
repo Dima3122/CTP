@@ -10,11 +10,11 @@ namespace sql
         std::string TableName;
         std::vector<Expression> columns;
     public:
-        DeleteStatement();
+        DeleteStatement() = default;
         ~DeleteStatement() = default;
-        void get_data() override;
+        void write_data() override;
         void set_TableName(std::string_view TableName);
-        void set_colomns(struct Expression a);
+        void set_colomns(Expression a);
 
         std::string get_TableName() override;
         std::vector<Expression> get_colums();

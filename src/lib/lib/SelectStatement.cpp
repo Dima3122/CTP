@@ -2,22 +2,16 @@
 
 namespace sql
 {
-    SelectStatement::SelectStatement()
-    {
-    }
-
     void SelectStatement::accept(ExecuteVisitor &visitor)
     {
         visitor.visit(*this);
     }
-    void SelectStatement::get_data()
+    void SelectStatement::write_data()
     {
-        std::cout << "TableName " << TableName << std::endl;
-        for (int i = 0; i < columns.size(); i++)
+        std::cout << "TableName " << TableName << '\n';
+        for (auto &vector : columns)
         {
-            std::cout << "Operand1 " << columns[i].Operand1 << " "
-                      << "Operation " << columns[i].Operation << " "
-                      << "Operand2 " << columns[i].Operand2 << std::endl;
+            std::cout << "Operand1 " << vector.Operand1 << ' ' << "Operation " << vector.Operation << ' ' << "Operand2 " << vector.Operand2 << '\n';
         }
     }
     void SelectStatement::set_TableName(std::string_view TableName)
@@ -28,9 +22,9 @@ namespace sql
     {
         return TableName;
     }
-    void SelectStatement::set_colomns(struct Expression a)
+    void SelectStatement::set_colomns(Expression a)
     {
-        columns.emplace_back(a);
+        columns.emplace_back(std::move(a));
     }
 
     std::vector<Expression> SelectStatement::get_colums()

@@ -1,6 +1,6 @@
 #include "Parser.hpp"
 
-std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::NewLexer &lexer, SqlScript &result)
+std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::Lexer &lexer, SqlScript &result)
 {
     std::unique_ptr<sql::DeleteStatement> StatementDelete = std::make_unique<sql::DeleteStatement>();
     sql::Token token = lexer.GetToken();
@@ -56,7 +56,7 @@ std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::NewLexer &lexer,
     return std::unique_ptr<sql::DeleteStatement>(StatementDelete.release());
 }
 
-std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::NewLexer &lexer, SqlScript &result)
+std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::Lexer &lexer, SqlScript &result)
 {
     std::unique_ptr<sql::CreateTableStatement> StatementCreate = std::make_unique<sql::CreateTableStatement>();
     sql::Token token = lexer.GetToken();
@@ -176,7 +176,7 @@ std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::NewLexer &lexe
     return std::unique_ptr<sql::SqlStatement>(StatementCreate.release());
 }
 
-std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::NewLexer &lexer, SqlScript &result)
+std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::Lexer &lexer, SqlScript &result)
 {
     std::unique_ptr<sql::SelectStatement> StatementSelect = std::make_unique<sql::SelectStatement>();
     sql::Token token = lexer.GetToken();
@@ -309,7 +309,7 @@ std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::NewLexer &lexe
     return std::unique_ptr<sql::SqlStatement>(StatementSelect.release());
 }
 
-std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::NewLexer &lexer, SqlScript &result)
+std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::Lexer &lexer, SqlScript &result)
 {
     std::unique_ptr<sql::InsertStatement> StatementInsert = std::make_unique<sql::InsertStatement>();
     sql::Token token = lexer.GetToken();
@@ -429,7 +429,7 @@ std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::NewLexer &lexe
     return std::unique_ptr<sql::InsertStatement>(StatementInsert.release());
 }
 
-std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::NewLexer &lexer, SqlScript &result)
+std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::Lexer &lexer, SqlScript &result)
 {
     std::unique_ptr<sql::DeleteStatement> StatementDelete = std::make_unique<sql::DeleteStatement>();
     sql::Token token = lexer.GetToken();
@@ -565,7 +565,7 @@ std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::NewLexer &lexe
 SqlScript run_parse(std::string str)
 {
     SqlScript result;
-    sql::NewLexer lexer(str);
+    sql::Lexer lexer(str);
     sql::Token token;
     Error error;
     do

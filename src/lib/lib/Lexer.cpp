@@ -1,8 +1,8 @@
-#include "NewLexer.hpp"
+#include "Lexer.hpp"
 
 namespace sql
 {
-    NewLexer::NewLexer(std::string_view parse_str)
+    Lexer::Lexer(std::string_view parse_str)
     {
         this->parse_str = parse_str;
         pos_curs = 0;
@@ -26,7 +26,7 @@ namespace sql
             };
     }
 
-    NewLexer::~NewLexer()
+    Lexer::~Lexer()
     {
     }
 
@@ -36,12 +36,12 @@ namespace sql
         return os;
     }
 
-    void NewLexer::set_parse_str(std::string_view parse_str)
+    void Lexer::set_parse_str(std::string_view parse_str)
     {
         this->parse_str = parse_str;
     }
 
-    Token NewLexer::GetToken()
+    Token Lexer::GetToken()
     {
         std::smatch matches;
         auto token = PeekToken();
@@ -49,11 +49,11 @@ namespace sql
         return token;
     }
 
-    Token NewLexer::PeekToken()
+    Token Lexer::PeekToken()
     {
         if (pos_curs >= parse_str.size())
         {
-            return NewLexer::FinalToken;
+            return Lexer::FinalToken;
         }
         for (auto &&it : Rules)
         {                      //поиск по строке в поисках подстрок, которые regex совпадения, regex_search
@@ -67,7 +67,7 @@ namespace sql
         return Token();
     }
 
-    const char *NewLexer::GetTokenTypeName(TokenType type)
+    const char *Lexer::GetTokenTypeName(TokenType type)
     {
         switch (type)
         {

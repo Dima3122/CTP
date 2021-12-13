@@ -2,10 +2,6 @@
 
 namespace sql
 {
-    CreateTableStatement::CreateTableStatement()
-    {
-    }
-
     void CreateTableStatement::accept(ExecuteVisitor &visitor)
     {
         visitor.visit(*this);
@@ -14,18 +10,18 @@ namespace sql
     {
         this->TableName = TableName;
     }
-    void CreateTableStatement::get_data()
+    void CreateTableStatement::write_data()
     {
-        std::cout << "TableName " << TableName << std::endl;
-        for (int i = 0; i < columns.size(); i++)
+        std::cout << "TableName " << TableName << '\n';
+        for (auto &vector : columns)
         {
-            std::cout << "column Name " << columns[i].ColumnName << " "
-                      << "column type " << columns[i].TypeName_or_value << std::endl;
+            std::cout << "column Name " << vector.ColumnName << ' ' << "column type " << vector.TypeName_or_value << '\n';
         }
+        
     }
     void CreateTableStatement::set_colomns(struct ColumnDef a)
     {
-        columns.emplace_back(a);
+        columns.emplace_back(std::move(a));
     }
 
     std::string CreateTableStatement::get_TableName()

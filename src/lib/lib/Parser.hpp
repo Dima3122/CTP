@@ -1,6 +1,6 @@
 #include <vector>
 #include <memory>
-#include "NewLexer.hpp"
+#include "Lexer.hpp"
 #include "InsertStatement.hpp"
 #include "DropTableStatement.hpp"
 #include "DeleteStatement.hpp"
@@ -8,6 +8,7 @@
 #include "CreateTableStatement.hpp"
 #include "SqlStatement.hpp"
 #include "Visitor.hpp"
+
 struct Error
 {
     std::string str;
@@ -20,9 +21,9 @@ struct SqlScript
     std::vector<Error> Errors;
 };
 
-std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::NewLexer &lexer, SqlScript &result);
-std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::NewLexer &lexer, SqlScript &result);
-std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::NewLexer &lexer, SqlScript &result);
-std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::NewLexer &lexer, SqlScript &result);
-std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::NewLexer &lexer, SqlScript &result);
+std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::Lexer &lexer, SqlScript &result);
+std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::Lexer &lexer, SqlScript &result);
+std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::Lexer &lexer, SqlScript &result);
+std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::Lexer &lexer, SqlScript &result);
+std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::Lexer &lexer, SqlScript &result);
 SqlScript run_parse(std::string str);

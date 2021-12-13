@@ -2,10 +2,6 @@
 
 namespace sql
 {
-    DeleteStatement::DeleteStatement()
-    {
-        
-    }
     void DeleteStatement::accept(ExecuteVisitor &visitor)
     {
         visitor.visit(*this);
@@ -14,14 +10,12 @@ namespace sql
     {
         this->TableName = TableName;
     }
-    void DeleteStatement::get_data()
+    void DeleteStatement::write_data()
     {
-        std::cout << "TableName " << TableName << std::endl;
-        for (int i = 0; i < columns.size(); i++)
+        std::cout << "TableName " << TableName << '\n';
+        for (auto &vector : columns)
         {
-            std::cout << "Operand1 " << columns[i].Operand1 << " "
-                      << "Operation " << columns[i].Operation << " "
-                      << "Operand2 " << columns[i].Operand2 << std::endl;
+            std::cout << "Operand1 " << vector.Operand1 << ' ' << "Operation " << vector.Operation << ' ' << "Operand2 " << vector.Operand2 << '\n';
         }
     }
     std::string DeleteStatement::get_TableName()
@@ -30,7 +24,7 @@ namespace sql
     }
     void DeleteStatement::set_colomns(struct Expression a)
     {
-        columns.emplace_back(a);
+        columns.emplace_back(std::move(a));
     }
     std::vector<Expression> DeleteStatement::get_colums()
     {

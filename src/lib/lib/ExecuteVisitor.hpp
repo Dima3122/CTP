@@ -13,7 +13,7 @@ namespace sql
         void visit(DeleteStatement &DeleteStatement) override;
         void visit(DropTableStatement &DropStatement) override;
 
-        ExecuteVisitor();
+        ExecuteVisitor() = default;
         ~ExecuteVisitor() = default;
     };
 }

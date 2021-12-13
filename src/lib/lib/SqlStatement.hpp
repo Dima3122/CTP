@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "ExecuteVisitor.hpp"
+
 namespace sql
 {
     struct ColumnDef
@@ -19,7 +20,7 @@ namespace sql
     class SqlStatement
     {
     public:
-        virtual void get_data() = 0;
+        virtual void write_data() = 0;
         virtual ~SqlStatement() = default;
 
         virtual std::string get_TableName() = 0;
