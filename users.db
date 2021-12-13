@@ -1,0 +1,1 @@
+CREATE TABLE gamer ( name TEXT, age INT , coin REAL );DROP TABLE users

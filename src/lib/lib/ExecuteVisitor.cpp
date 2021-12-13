@@ -14,12 +14,15 @@ namespace sql
     }
     void ExecuteVisitor::visit(SelectStatement &SelectStatement)
     {
+        SelectStatement.write_data();
     }
     void ExecuteVisitor::visit(InsertStatement &InsertStatement)
     {
+        InsertStatement.write_data();
     }
     void ExecuteVisitor::visit(DeleteStatement &DeleteStatement)
     {
+        DeleteStatement.write_data();
     }
     void ExecuteVisitor::visit(DropTableStatement &DropStatement)
     {
