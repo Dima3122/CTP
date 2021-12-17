@@ -23,7 +23,7 @@ namespace sql
         virtual void write_data() = 0;
         virtual ~SqlStatement() = default;
 
-        virtual std::string get_TableName() = 0;
+        virtual const std::string& get_TableName() = 0;
 
         virtual void accept(ExecuteVisitor &visitor) = 0;
     };    

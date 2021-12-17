@@ -1,6 +1,3 @@
 project(Library)
 set(CMAKE_CXX_STANDARD 20)
-add_library(Statements STATIC lib/SelectStatement.cpp lib/InsertStatement.cpp lib/DropTableStatement.cpp lib/DeleteStatement.cpp lib/CreateTableStatement.cpp lib/ExecuteVisitor.cpp lib/MemoryMapped.cpp lib/File.cpp)
-add_library(Parser STATIC lib/Parser.cpp)
-add_library(NewLexer STATIC lib/Lexer.cpp)
-# set_compile_options(lib)
+add_library(Statements STATIC lib/Lexer.cpp lib/Parser.cpp lib/SelectStatement.cpp lib/InsertStatement.cpp lib/DropTableStatement.cpp lib/DeleteStatement.cpp lib/CreateTableStatement.cpp lib/ExecuteVisitor.cpp lib/MemoryMapped.cpp lib/File.cpp)

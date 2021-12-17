@@ -22,7 +22,7 @@ namespace sql
     {
         columns.emplace_back(std::move(a));
     }
-    std::string InsertStatement::get_TableName()
+    const std::string& InsertStatement::get_TableName()
     {
         return TableName;
     }

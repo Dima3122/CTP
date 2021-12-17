@@ -18,7 +18,7 @@ namespace sql
             std::cout << "Operand1 " << vector.Operand1 << ' ' << "Operation " << vector.Operation << ' ' << "Operand2 " << vector.Operand2 << '\n';
         }
     }
-    std::string DeleteStatement::get_TableName()
+    const std::string& DeleteStatement::get_TableName()
     {
         return TableName;
     }

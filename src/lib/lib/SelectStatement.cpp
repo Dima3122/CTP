@@ -18,7 +18,7 @@ namespace sql
     {
         this->TableName = TableName;
     }
-    std::string SelectStatement::get_TableName()
+    const std::string& SelectStatement::get_TableName()
     {
         return TableName;
     }

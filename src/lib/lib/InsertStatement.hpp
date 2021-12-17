@@ -18,7 +18,7 @@ namespace sql
         void set_TableName(std::string_view TableName);
         void set_colomns(ColumnDef a);
         
-        std::string get_TableName() override;
+        const std::string& get_TableName() override;
         std::vector<ColumnDef> get_colums();
         
         void accept(ExecuteVisitor &visitor) override;
