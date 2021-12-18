@@ -22,7 +22,7 @@ int main()
         sql_inquiry += ch;
     }
     fin.close();
-    SqlScript SqlScript = Parse(sql_inquiry); 
+    sql::SqlScript SqlScript = sql::Parse_str(sql_inquiry); 
     if (SqlScript.Errors.size() != 0)
     {
         for (auto &Script : SqlScript.Statements)

@@ -8,19 +8,19 @@ namespace sql
 {
     enum class TokenType
     {
-        String = 0,
-        Int = 1,
-        Real = 2,
-        Keyword = 3,
-        ID = 4,
-        Operation = 5,
-        CommonSeparator = 6,
-        Bracket = 7,
-        Semicolon = 8,
-        InvalidToken = 9,
-        FinalToken = 10,
-        Comma = 11,
-        TypeName = 12
+        String,
+        Int,
+        Real,
+        Keyword,
+        ID,
+        Operation,
+        CommonSeparator,
+        Bracket,
+        Semicolon,
+        InvalidToken,
+        FinalToken,
+        Comma,
+        TypeName 
     };
 
     struct Token

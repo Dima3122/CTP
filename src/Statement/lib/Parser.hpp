@@ -9,21 +9,35 @@
 #include "SqlStatement.hpp"
 #include "Visitor.hpp"
 
-struct Error
+namespace sql
 {
-    std::string str;
-    std::string type;
-    std::string expected;
-};
-struct SqlScript
-{
-    std::vector<std::unique_ptr<sql::SqlStatement>> Statements;
-    std::vector<Error> Errors;
-};
-
-std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::Lexer &lexer, SqlScript &result);
-std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::Lexer &lexer, SqlScript &result);
-std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::Lexer &lexer, SqlScript &result);
-std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::Lexer &lexer, SqlScript &result);
-std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::Lexer &lexer, SqlScript &result);
-SqlScript Parse(std::string str);
+    using SqlStatementPtr = std::unique_ptr<sql::SqlStatement>;
+    using SqlStatements = std::vector<SqlStatementPtr>; 
+    
+    struct Error
+    {
+        std::string str;
+        std::string type;
+        std::string expected;
+    };
+    struct SqlScript
+    {
+        SqlStatements Statements;
+        std::vector<Error> Errors;
+    };
+    
+    class Parser
+    {
+    private:
+        sql::Lexer &lexer;
+        SqlScript result;
+    public:
+        Parser(sql::Lexer& lexer_) : lexer(lexer_){}
+        SqlStatementPtr ParseCreateTableStatement();
+        SqlStatementPtr ParseSelectTableStatement();
+        SqlStatementPtr ParseDeleteTableStatement();
+        SqlStatementPtr ParseDropTableStatement();
+        SqlStatementPtr ParseInsertTableStatement();
+    };
+    SqlScript Parse_str(std::string str);
+}

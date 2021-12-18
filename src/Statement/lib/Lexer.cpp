@@ -36,9 +36,9 @@ namespace sql
         return os;
     }
 
-    void Lexer::set_parse_str(std::string_view parse_str)
+    void Lexer::set_parse_str(std::string_view str)
     {
-        this->parse_str = parse_str;
+        parse_str = str;
     }
 
     Token Lexer::GetToken()
