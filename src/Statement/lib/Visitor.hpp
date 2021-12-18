@@ -18,6 +18,5 @@ namespace sql
         virtual void visit(sql::DeleteStatement &DeleteStatement) = 0;
         virtual void visit(sql::DropTableStatement &DropStatement) = 0;
         virtual ~Visitor() = default;
-        Visitor() = default;
     };
 }

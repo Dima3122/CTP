@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
-#include <Lexer.hpp>
-#include <Parser.hpp>
-#include <ExecuteVisitor.hpp>
-#include <Visitor.hpp>
 #include <fstream>
+#include <lib/Lexer.hpp>
+#include <lib/Parser.hpp>
+#include <lib/ExecuteVisitor.hpp>
+#include <lib/Visitor.hpp>
 
 int main()
 {
@@ -22,12 +22,12 @@ int main()
         sql_inquiry += ch;
     }
     fin.close();
-    SqlScript SqlScript = run_parse(sql_inquiry); 
+    SqlScript SqlScript = Parse(sql_inquiry); 
     if (SqlScript.Errors.size() != 0)
     {
         for (auto &Script : SqlScript.Statements)
         {
-            Script->accept(visit);
+            Script->Accept(visit);
         }
     }
     else

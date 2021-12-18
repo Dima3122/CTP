@@ -11,6 +11,7 @@ namespace sql
             exit(-1);
         }
         this->file_name = file_name;
+        fin.close();
     }
     File::~File()
     {
@@ -32,5 +33,6 @@ namespace sql
     {
         std::ofstream fot(file_name);
         fot << str;
+        fot.close();
     }
 }

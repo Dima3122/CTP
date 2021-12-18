@@ -26,4 +26,4 @@ std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::Lexer &lexer, 
 std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::Lexer &lexer, SqlScript &result);
 std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::Lexer &lexer, SqlScript &result);
 std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::Lexer &lexer, SqlScript &result);
-SqlScript run_parse(std::string str);
+SqlScript Parse(std::string str);

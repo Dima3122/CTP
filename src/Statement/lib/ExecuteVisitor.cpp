@@ -10,22 +10,22 @@ namespace sql
 {
     void ExecuteVisitor::visit(CreateTableStatement &CreateStatement)
     {
-        CreateStatement.write_data();
+        CreateStatement.Write_Data();
     }
     void ExecuteVisitor::visit(SelectStatement &SelectStatement)
     {
-        SelectStatement.write_data();
+        SelectStatement.Write_Data();
     }
     void ExecuteVisitor::visit(InsertStatement &InsertStatement)
     {
-        InsertStatement.write_data();
+        InsertStatement.Write_Data();
     }
     void ExecuteVisitor::visit(DeleteStatement &DeleteStatement)
     {
-        DeleteStatement.write_data();
+        DeleteStatement.Write_Data();
     }
     void ExecuteVisitor::visit(DropTableStatement &DropStatement)
     {
-        DropStatement.write_data();
+        DropStatement.Write_Data();
     }
 }

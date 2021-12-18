@@ -19,12 +19,20 @@ namespace sql
     };
     class SqlStatement
     {
+    protected:
+        std::string TableName;
     public:
-        virtual void write_data() = 0;
+        virtual void Write_Data() = 0;
         virtual ~SqlStatement() = default;
 
-        virtual const std::string& get_TableName() = 0;
-
-        virtual void accept(ExecuteVisitor &visitor) = 0;
+        const std::string& Get_TableName() const
+        {
+            return TableName;
+        }
+        void Set_TableName(std::string_view str)
+        {
+            TableName = str;
+        }
+        virtual void Accept(ExecuteVisitor &visitor) = 0;
     };    
 }

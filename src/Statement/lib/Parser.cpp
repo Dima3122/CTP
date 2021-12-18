@@ -40,7 +40,7 @@ std::unique_ptr<sql::SqlStatement> ParseDropTableStatement(sql::Lexer &lexer, Sq
         error.type = "ID";
         result.Errors.push_back(error);
     }
-    StatementDelete->set_TableName(token.Lexem);
+    StatementDelete->Set_TableName(token.Lexem);
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
     {
@@ -98,7 +98,7 @@ std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::Lexer &lexer, 
         error.type = "ID";
         result.Errors.push_back(error);
     }
-    StatementCreate->set_TableName(token.Lexem);
+    StatementCreate->Set_TableName(token.Lexem);
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
     {
@@ -159,7 +159,7 @@ std::unique_ptr<sql::SqlStatement> ParseCreateTableStatement(sql::Lexer &lexer, 
         {
             token = lexer.GetToken();
         }
-        StatementCreate->set_colomns(columnDef);
+        StatementCreate->Set_Colomns(columnDef);
     }
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
@@ -218,7 +218,7 @@ std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::Lexer &lexer, 
         error.type = "ID";
         result.Errors.push_back(error);
     }
-    StatementSelect->set_TableName(token.Lexem);
+    StatementSelect->Set_TableName(token.Lexem);
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
     {
@@ -292,7 +292,7 @@ std::unique_ptr<sql::SqlStatement> ParseSelectTableStatement(sql::Lexer &lexer, 
         {
             token = lexer.GetToken();
         }
-        StatementSelect->set_colomns(expression);
+        StatementSelect->Set_Colomns(expression);
     }
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
@@ -351,7 +351,7 @@ std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::Lexer &lexer, 
         error.type = "ID";
         result.Errors.push_back(error);
     }
-    StatementInsert->set_TableName(token.Lexem);
+    StatementInsert->Set_TableName(token.Lexem);
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
     {
@@ -412,7 +412,7 @@ std::unique_ptr<sql::SqlStatement> ParseInsertTableStatement(sql::Lexer &lexer, 
         {
             token = lexer.GetToken();
         }
-        StatementInsert->set_colomns(columnDef);
+        StatementInsert->Set_Colomns(columnDef);
     }
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
@@ -471,7 +471,7 @@ std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::Lexer &lexer, 
         error.type = "ID";
         result.Errors.push_back(error);
     }
-    StatementDelete->set_TableName(token.Lexem);
+    StatementDelete->Set_TableName(token.Lexem);
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
     {
@@ -545,7 +545,7 @@ std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::Lexer &lexer, 
         {
             token = lexer.GetToken();
         }
-        StatementDelete->set_colomns(expression);
+        StatementDelete->Set_Colomns(expression);
     }
     token = lexer.GetToken();
     while (token.Type == sql::TokenType::CommonSeparator)
@@ -562,7 +562,7 @@ std::unique_ptr<sql::SqlStatement> ParseDeleteTableStatement(sql::Lexer &lexer, 
     return std::unique_ptr<sql::DeleteStatement>(StatementDelete.release());
 }
 
-SqlScript run_parse(std::string str)
+SqlScript Parse(std::string str)
 {
     SqlScript result;
     sql::Lexer lexer(str);
